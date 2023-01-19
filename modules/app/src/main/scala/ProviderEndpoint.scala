@@ -15,8 +15,9 @@ import persistance.QuillCurrencyRepository
 import io.getquill.jdbczio.Quill.DataSource
 import javax.sql.DataSource
 import core.Provider
+import ziohttp.*
 
-object ProviderEndpoint {
+object ProviderEndpoint extends HttpModule[ProviderUsecase] {
 
   given codecBooks: JsonValueCodec[Provider] = JsonCodecMaker.make
 
@@ -37,9 +38,7 @@ object ProviderEndpoint {
     List(createProviderEndpoint)
 
   val apiEndpoints =
-    List(createProviderServerEndpoint)
-
-  val all: List[ZServerEndpoint[ProviderUsecase, Any]] =
-    apiEndpoints
+    ZIOHttp
+      .toHttp(List(createProviderServerEndpoint))
 
 }

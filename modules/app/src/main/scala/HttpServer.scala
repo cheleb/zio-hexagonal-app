@@ -31,19 +31,15 @@ object Main extends ZIOAppDefault:
       HelloEndpoint.apiDocEndpoints ++ CurrencyEndpoints.apiDocEndpoints ++ ProviderEndpoint.apiDocEndpoints
     )
 
-    val app0 =
-      ZIOHttp.toHttp(HelloEndpoint.all)
-    val app1 =
-      ZIOHttp.toHttp(CurrencyEndpoints.all)
-    val app2 = ZIOHttp
-      .toHttp(ProviderEndpoint.all)
-      .provideLayer(ProviderUsecase.live)
-    val app3 = ZioHttpInterpreter()
-      .toHttp(currencyDocEndpoints)
-
-    val metrics = ZIOHttp.toHttp(MetricsEndpoints.metricsEndpoint)
-
-    val app = List(app0, app1, app2, app3, metrics).reduce(_ ++ _)
+    val app =
+      List(
+        HelloEndpoint.apiEndpoints,
+        CurrencyEndpoints.apiEndpoints,
+        ProviderEndpoint.apiEndpoints.provideLayer(ProviderUsecase.live),
+        //
+        ZioHttpInterpreter().toHttp(currencyDocEndpoints),
+        ZIOHttp.toHttp(MetricsEndpoints.metricsEndpoint)
+      ).reduce(_ ++ _)
 
     val port = sys.env.get("HTTP_PORT").flatMap(_.toIntOption).getOrElse(8080)
 

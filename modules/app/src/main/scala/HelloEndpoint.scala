@@ -15,13 +15,16 @@ import io.getquill.jdbczio.Quill.DataSource
 import javax.sql.DataSource
 import ziohttp.HttpModule
 import sttp.capabilities.zio.ZioStreams
+import ziohttp.*
 
 case class User(name: String) extends AnyVal
-object HelloEndpoint {
+object HelloEndpoint extends HttpModule[Any] {
+
   val helloEndpoint: PublicEndpoint[User, Unit, String, Any] = endpoint.get
     .in("hello")
     .in(query[User]("name"))
     .out(stringBody)
+
   val helloServerEndpoint: ZServerEndpoint[Any, Any] =
     helloEndpoint.serverLogicSuccess(user =>
       ZIO.log("coucou")
@@ -31,9 +34,6 @@ object HelloEndpoint {
   val apiDocEndpoints = List(helloEndpoint)
 
   val apiEndpoints =
-    List(helloServerEndpoint)
-
-  val all: List[ZServerEndpoint[Any, ZioStreams]] =
-    apiEndpoints
+    ZIOHttp.toHttp(List(helloServerEndpoint))
 
 }

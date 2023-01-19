@@ -16,6 +16,13 @@ case class CreateCurrency(repo: CurrencyRepository) {
       _ <- ZIO.succeed(println(s"Persisted $currency"))
     } yield ()
 
+  def list: ZIO[Any, Throwable, List[Currency]] =
+    for {
+      _ <- ZIO.succeed(println(s"Listing currencies"))
+      currencies <- repo.list
+      _ <- ZIO.succeed(println(s"Listed currencies"))
+    } yield currencies
+
 }
 
 object CreateCurrency {
@@ -24,4 +31,7 @@ object CreateCurrency {
 
   def persist(currency: Currency): ZIO[CreateCurrency, Throwable, Unit] =
     ZIO.serviceWithZIO[CreateCurrency](_.persist(currency))
+
+  def list: ZIO[CreateCurrency, Throwable, List[Currency]] =
+    ZIO.serviceWithZIO[CreateCurrency](_.list)
 }

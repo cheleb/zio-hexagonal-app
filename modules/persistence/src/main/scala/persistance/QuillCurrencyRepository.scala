@@ -31,6 +31,11 @@ case class QuillCurrencyRepository(
 
     ctx.run(q.value).provide(env)
 
+  override def list: Task[List[Currency]] =
+    inline def q = quote {
+      query[Currency]
+    }
+    ctx.run(q).provide(env)
 }
 
 object QuillCurrencyRepository {

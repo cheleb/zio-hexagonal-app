@@ -16,16 +16,23 @@ import javax.sql.DataSource
 
 import ziohttp.HttpModule
 import sttp.capabilities.zio.ZioStreams
+import ziohttp.*
 
-object CurrencyEndpoints {
+object CurrencyEndpoints extends HttpModule[CreateCurrency] {
 
-  given codecBooks: JsonValueCodec[Currency] = JsonCodecMaker.make
+  given codecCurrency: JsonValueCodec[Currency] = JsonCodecMaker.make
+  given codecCurrencie: JsonValueCodec[List[Currency]] = JsonCodecMaker.make
 
   val createCurrencyEndpoint: PublicEndpoint[Currency, Unit, Unit, Any] =
     endpoint.post
       .in("currency")
       .in(jsonBody[Currency])
       .out(emptyOutput)
+
+  val listCurrencyEndpoint: PublicEndpoint[Unit, Unit, List[Currency], Any] =
+    endpoint.get
+      .in("currency")
+      .out(jsonBody[List[Currency]])
 
   val createCurrencyServerEndpoint: ZServerEndpoint[CreateCurrency, Any] =
     createCurrencyEndpoint
@@ -34,14 +41,18 @@ object CurrencyEndpoints {
           .persist(currency)
       )
 
-  val apiDocEndpoints: List[PublicEndpoint[Currency, Unit, Unit, Any]] = List(
-    createCurrencyEndpoint
+  val listCurrencyServerEndpoint: ZServerEndpoint[CreateCurrency, Any] =
+    listCurrencyEndpoint
+      .serverLogicSuccess(_ => CreateCurrency.list)
+
+  val apiDocEndpoints = List(
+    createCurrencyEndpoint,
+    listCurrencyEndpoint
   )
 
   val apiEndpoints =
-    List(createCurrencyServerEndpoint)
-
-  val all: List[ZServerEndpoint[CreateCurrency, ZioStreams]] =
-    apiEndpoints
+    ZIOHttp.toHttp(
+      List(createCurrencyServerEndpoint, listCurrencyServerEndpoint)
+    )
 
 }
