@@ -5,6 +5,6 @@ import zio.*
 import core.Currency
 trait CurrencyRepository {
   def store(currency: Currency): Task[Unit]
-  def find(code: String): Task[Option[Currency]]
+  def find(code: CurrencyCode): Task[Option[Currency]]
   def list: Task[List[Currency]]
 }

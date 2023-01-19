@@ -9,3 +9,11 @@ CREATE TABLE Provider (
     name text NOT NULL
 );
 
+CREATE TABLE Provider_x_Currency (
+    provider_id text NOT NULL,
+    currency_code text NOT NULL,
+    PRIMARY KEY (provider_id, currency_code),
+    FOREIGN KEY (provider_id) REFERENCES Provider (id),
+    FOREIGN KEY (currency_code) REFERENCES Currency (code)
+);
+

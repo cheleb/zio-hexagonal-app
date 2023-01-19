@@ -29,7 +29,7 @@ lazy val root = project
   .settings(
     name := "zio-hexagonal-app"
   )
-  .aggregate(core, persistence)
+  .aggregate(app, core, persistence)
 
 def module(projectId: String, folder: Option[String] = None): Project =
   Project(

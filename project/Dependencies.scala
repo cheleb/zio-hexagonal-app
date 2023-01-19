@@ -3,10 +3,13 @@ import sbt._
 object Dependencies {
 
   private object Versions {
+    val flyway = "9.11.0"
+    val postgresql = "42.2.8"
     val quill = "4.6.0"
     val scala3 = "3.2.2"
     val tapir = "1.2.6"
     val zio = "2.0.5"
+    val zioConfig = "3.0.7"
   }
 
   lazy val coreDependencies = Seq(
@@ -16,7 +19,14 @@ object Dependencies {
   )
 
   lazy val appDependencies =
-    httpServer :+ "org.postgresql" % "postgresql" % "42.2.8" % "runtime"
+    httpServer ++ Seq(
+      "dev.zio" %% "zio-config" % Versions.zioConfig,
+      "dev.zio" %% "zio-config-magnolia" % Versions.zioConfig,
+//      "dev.zio" %% "zio-config-refined" % Versions.zioConfig,
+      "dev.zio" %% "zio-config-typesafe" % Versions.zioConfig,
+      "org.flywaydb" % "flyway-core" % Versions.flyway,
+      "org.postgresql" % "postgresql" % Versions.postgresql % "runtime"
+    )
 
   val quillDependencies = Seq(
     "io.getquill" %% "quill-jdbc-zio" % Versions.quill,

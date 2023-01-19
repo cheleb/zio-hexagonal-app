@@ -1,19 +1,24 @@
 package persistance
 
-import core.CurrencyRepository
-import core.Currency
+import core.*
 import zio.*
 import io.getquill.*
 import javax.sql.DataSource
 
 import persistance.QuillCurrencyRepository
 import java.lang.System
+
 case class QuillCurrencyRepository(
     ctx: PostgresZioJdbcContext[SnakeCase],
     dataSource: DataSource
 ) extends CurrencyRepository {
 
   import ctx.*
+
+  given MappedEncoding[CurrencyCode, String] =
+    MappedEncoding[CurrencyCode, String](_.toString)
+  given MappedEncoding[String, CurrencyCode] =
+    MappedEncoding[String, CurrencyCode](CurrencyCode(_))
 
   val env = ZLayer.succeed(dataSource)
 
@@ -24,7 +29,7 @@ case class QuillCurrencyRepository(
 
     run(q).provide(env).unit <* ZIO.debug(s"Stored $currency")
 
-  override def find(code: String): Task[Option[Currency]] =
+  override def find(code: CurrencyCode): Task[Option[Currency]] =
     inline def q = quote {
       query[Currency].filter(_.code == lift(code))
     }
