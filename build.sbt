@@ -3,23 +3,23 @@ val scala3Version = "3.2.2"
 inThisBuild(
   Seq(
     scalaVersion := scala3Version,
-//    run / fork := true,
-    cancelable := true
+    scalafmtAll := true,
+    scalafmtOnCompile := true
   )
 )
 
-lazy val core = module("core")
+lazy val `currency-core` = module("currency", "core")
   .settings(
     libraryDependencies := Dependencies.coreDependencies
   )
-lazy val persistence = module("persistence")
+lazy val `currency-persistence` = module("currency", "persistence")
   .settings(
     libraryDependencies := Dependencies.quillDependencies
   )
-  .dependsOn(core)
+  .dependsOn(`currency-core`)
 
-lazy val app = module("app")
-  .dependsOn(core, persistence)
+lazy val `currency-service` = module("currency", "service")
+  .dependsOn(`currency-core`, `currency-persistence`)
   .settings(
     libraryDependencies := Dependencies.appDependencies
   )
@@ -29,13 +29,13 @@ lazy val root = project
   .settings(
     name := "zio-hexagonal-app"
   )
-  .aggregate(app, core, persistence)
+  .aggregate(`currency-service`, `currency-core`, `currency-persistence`)
 
-def module(projectId: String, folder: Option[String] = None): Project =
+def module(moduleId: String, projectId: String): Project =
   Project(
-    id = projectId,
-    base = file(s"modules/${folder.getOrElse(projectId)}")
+    id = s"$moduleId-$projectId",
+    base = file(s"modules/$moduleId/$projectId")
   ).settings(
-    name := projectId,
+    name := s"$moduleId/$projectId",
     libraryDependencies += "org.scalameta" %% "munit" % "0.7.29" % Test
   )

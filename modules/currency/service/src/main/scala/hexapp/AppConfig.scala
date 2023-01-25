@@ -1,4 +1,4 @@
-package config
+package hexapp
 
 import flywayutil.DatabaseConfig
 
@@ -12,6 +12,6 @@ object AppConfig {
   val configDescriptor: ConfigDescriptor[AppConfig] =
     descriptor[AppConfig]
 
-  val config = read(configDescriptor.from(ConfigSource.fromResourcePath))
+  def load = read(configDescriptor.from(ConfigSource.fromResourcePath))
 
 }
