@@ -66,7 +66,7 @@ object Main extends ZIOAppDefault:
       app: HttpApp[R, Throwable]
   ): ZIO[R & Server, IOException, Int] =
     for
-      actualPort <- Server.install(app)
+      actualPort <- Server.serve(app)
       _ <- Console.printLine(
         s"Go to http://localhost:${actualPort}/docs to open SwaggerUI. Press ENTER key to exit."
       )

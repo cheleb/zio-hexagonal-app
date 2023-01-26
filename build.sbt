@@ -8,6 +8,12 @@ inThisBuild(
   )
 )
 
+lazy val dockerSettings = Seq(
+  dockerBaseImage := "azul/zulu-openjdk-alpine:19.0.2-19.32.13",
+//  dockerUpdateLatest := true,
+  dockerExposedPorts := Seq(8080)
+)
+
 lazy val `currency-core` = module("currency", "core")
   .settings(
     libraryDependencies := Dependencies.coreDependencies
@@ -19,10 +25,17 @@ lazy val `currency-persistence` = module("currency", "persistence")
   .dependsOn(`currency-core`)
 
 lazy val `currency-service` = module("currency", "service")
+  .enablePlugins(
+    BuildInfoPlugin,
+    JavaServerAppPackaging,
+//    JavaAgent,
+    DockerPlugin
+  )
   .dependsOn(`currency-core`, `currency-persistence`)
   .settings(
     libraryDependencies := Dependencies.appDependencies
   )
+  .settings(dockerSettings)
 
 lazy val root = project
   .in(file("."))

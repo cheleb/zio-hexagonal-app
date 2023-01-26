@@ -10,6 +10,7 @@ object Dependencies {
     val tapir = "1.2.6"
     val zio = "2.0.5"
     val zioConfig = "3.0.7"
+    val zioHttp = "0.0.3"
   }
 
   lazy val coreDependencies = Seq(
@@ -35,6 +36,7 @@ object Dependencies {
   )
 
   private val httpServer = Seq(
+//    "dev.zio" %% "zio-http" % Versions.zioHttp,
     "com.softwaremill.sttp.tapir" %% "tapir-zio-http-server" % Versions.tapir,
     "com.softwaremill.sttp.tapir" %% "tapir-prometheus-metrics" % Versions.tapir,
     "com.softwaremill.sttp.tapir" %% "tapir-swagger-ui-bundle" % Versions.tapir,
