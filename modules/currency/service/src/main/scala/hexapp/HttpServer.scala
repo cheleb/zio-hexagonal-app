@@ -48,7 +48,7 @@ object Main extends ZIOAppDefault:
       ZIOHttp.toHttp(currencyDocEndpoints) ++
       ZIOHttp.toHttp(MetricsEndpoints.metricsEndpoint)
 
-    val port = sys.env.get("HTTP_PORT").flatMap(_.toIntOption).getOrElse(8080)
+    val port = sys.env.get("HTTP_PORT").flatMap(_.toIntOption).getOrElse(8000)
 
     startServer(app)
       .provide(

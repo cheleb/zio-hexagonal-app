@@ -9,8 +9,10 @@ inThisBuild(
 )
 
 lazy val dockerSettings = Seq(
-  dockerBaseImage := "azul/zulu-openjdk-alpine:19.0.2-19.32.13",
-//  dockerUpdateLatest := true,
+  dockerBaseImage := "azul/zulu-openjdk-centos:19.0.2-19.32.13",
+  dockerUpdateLatest := true,
+  Docker / dockerRepository := Some("hub.docker.io"),
+  Docker / dockerUsername := Some("cheleb"),
   dockerExposedPorts := Seq(8080)
 )
 
@@ -35,7 +37,7 @@ lazy val `currency-service` = module("currency", "service")
   .settings(
     libraryDependencies := Dependencies.appDependencies
   )
-  .settings(dockerSettings)
+  .settings(publish / skip := true, dockerSettings)
 
 lazy val root = project
   .in(file("."))
