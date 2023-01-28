@@ -2,6 +2,7 @@ val scala3Version = "3.2.2"
 
 inThisBuild(
   Seq(
+    version := "0.1.1-SNAPSHOT",
     scalaVersion := scala3Version,
     scalafmtAll := true,
     scalafmtOnCompile := true
