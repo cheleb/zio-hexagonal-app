@@ -19,8 +19,6 @@ final case class DatabaseConfig(
     import scala.jdk.CollectionConverters.*
     ConfigFactory.parseMap(
       Map(
-        "dataSourceClassName" -> "org.postgresql.ds.PGSimpleDataSource",
-        "dataSource.databaseName" -> dbname,
         "jdbcUrl" -> url,
         "username" -> username,
         "password" -> password
