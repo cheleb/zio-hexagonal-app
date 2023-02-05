@@ -69,12 +69,12 @@ object ZIOHttp {
     ZioHttpInterpreter(
       serverOptions(MetricsEndpoints.prometheusMetrics.metricsInterceptor())
     )
-      .toHttp(se)
+      .toApp(se)
   def toHttp[R](se: ZServerEndpoint[R, ZioStreams]) =
     ZioHttpInterpreter(
       serverOptions(MetricsEndpoints.prometheusMetrics.metricsInterceptor())
     )
-      .toHttp(se)
+      .toApp(se)
 
   def swagger(
       name: String,

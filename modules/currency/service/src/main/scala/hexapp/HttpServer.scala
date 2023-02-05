@@ -3,7 +3,7 @@ package hexapp
 import flywayutil.FlywayMigration
 
 import zio.{Console, ExitCode, Scope, Task, ZIO, ZIOAppArgs, ZIOAppDefault}
-import zio.http.{Server, ServerConfig, HttpApp}
+import zio.http.{Server, ServerConfig, App}
 
 import core.CurrencyUseCase
 import core.ProviderUsecase
@@ -50,7 +50,7 @@ object Main extends ZIOAppDefault:
 
     val port = sys.env.get("HTTP_PORT").flatMap(_.toIntOption).getOrElse(8000)
 
-    startServer(app)
+    startServer(app.withDefaultErrorResponse)
       .provide(
         ServerConfig.live(ServerConfig.default.port(port)),
         Server.live,
@@ -63,10 +63,10 @@ object Main extends ZIOAppDefault:
       )
 
   def startServer[R](
-      app: HttpApp[R, Throwable]
+      app: App[R]
   ): ZIO[R & Server, IOException, Int] =
     for
-      actualPort <- Server.serve(app)
+      actualPort <- Server.serve(app.withDefaultErrorResponse)
       _ <- Console.printLine(
         s"Go to http://localhost:${actualPort}/docs to open SwaggerUI. Press ENTER key to exit."
       )

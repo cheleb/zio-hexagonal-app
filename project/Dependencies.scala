@@ -7,7 +7,7 @@ object Dependencies {
     val postgresql = "42.2.8"
     val quill = "4.6.0"
     val scala3 = "3.2.2"
-    val tapir = "1.2.6"
+    val tapir = "1.2.7"
     val zio = "2.0.5"
     val zioConfig = "3.0.7"
     val zioHttp = "0.0.3"
@@ -41,12 +41,12 @@ object Dependencies {
     "com.softwaremill.sttp.tapir" %% "tapir-prometheus-metrics" % Versions.tapir,
     "com.softwaremill.sttp.tapir" %% "tapir-swagger-ui-bundle" % Versions.tapir,
     "com.softwaremill.sttp.tapir" %% "tapir-jsoniter-scala" % Versions.tapir,
-    "com.github.plokhotnyuk.jsoniter-scala" %% "jsoniter-scala-core" % "2.20.3",
-    "com.github.plokhotnyuk.jsoniter-scala" %% "jsoniter-scala-macros" % "2.20.3",
+    "com.github.plokhotnyuk.jsoniter-scala" %% "jsoniter-scala-core" % "2.20.6",
+    "com.github.plokhotnyuk.jsoniter-scala" %% "jsoniter-scala-macros" % "2.20.6",
     "ch.qos.logback" % "logback-classic" % "1.4.5",
     "com.softwaremill.sttp.tapir" %% "tapir-sttp-stub-server" % Versions.tapir % Test,
     "dev.zio" %% "zio-test" % "2.0.5" % Test,
     "dev.zio" %% "zio-test-sbt" % "2.0.5" % Test,
-    "com.softwaremill.sttp.client3" %% "jsoniter" % "3.8.8" % Test
+    "com.softwaremill.sttp.client3" %% "jsoniter" % "3.8.10" % Test
   )
 }

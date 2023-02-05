@@ -2,7 +2,7 @@ val scala3Version = "3.2.2"
 
 inThisBuild(
   Seq(
-    version := "0.1.1-SNAPSHOT",
+    version := "0.1.2-SNAPSHOT",
     scalaVersion := scala3Version,
     scalafmtAll := true,
     scalafmtOnCompile := true
@@ -12,9 +12,10 @@ inThisBuild(
 lazy val dockerSettings = Seq(
   dockerBaseImage := "azul/zulu-openjdk-centos:19.0.2-19.32.13",
   dockerUpdateLatest := true,
-  Docker / dockerRepository := Some("hub.docker.io"),
+//  Docker / dockerRepository := Some("hub.docker.com"),
   Docker / dockerUsername := Some("cheleb"),
-  dockerExposedPorts := Seq(8080)
+  dockerExposedPorts := Seq(8080),
+  publish / skip := true
 )
 
 lazy val `currency-core` = module("currency", "core")
@@ -38,7 +39,7 @@ lazy val `currency-service` = module("currency", "service")
   .settings(
     libraryDependencies := Dependencies.appDependencies
   )
-  .settings(publish / skip := true, dockerSettings)
+  .settings(dockerSettings)
 
 lazy val root = project
   .in(file("."))
