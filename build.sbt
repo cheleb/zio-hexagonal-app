@@ -4,9 +4,21 @@ val scala3Version = "3.2.2"
 
 val dev = sys.env.get("DEV").isDefined
 
+val dockerPlugins = Seq(
+  JavaServerAppPackaging,
+//    JavaAgent,
+  DockerPlugin
+)
+
 val serverPlugins = dev match {
-  case true  => Seq()
-  case false => Seq(SbtWeb, JavaAppPackaging, WebScalaJSBundlerPlugin)
+  case true => Seq(BuildInfoPlugin, DockerPlugin)
+  case false =>
+    Seq(
+//      SbtWeb,
+      JavaServerAppPackaging,
+      WebScalaJSBundlerPlugin,
+      DockerPlugin
+    )
 }
 
 val serverSettings = dev match {
@@ -31,10 +43,9 @@ inThisBuild(
 lazy val dockerSettings = Seq(
   dockerBaseImage := "azul/zulu-openjdk-centos:19.0.2-19.32.13",
   dockerUpdateLatest := true,
-//  Docker / dockerRepository := Some("hub.docker.com"),
+  Docker / dockerRepository := Some("localhost:5000"),
   Docker / dockerUsername := Some("cheleb"),
-  dockerExposedPorts := Seq(8080),
-  publish / skip := true
+  dockerExposedPorts := Seq(8080)
 )
 
 lazy val `common-http` = module("common", "http")
@@ -53,12 +64,7 @@ lazy val `currency-persistence` = module("currency", "persistence")
   .dependsOn(`currency-core`)
 
 lazy val `currency-service` = module("currency", "service")
-  .enablePlugins(
-    BuildInfoPlugin,
-    JavaServerAppPackaging,
-//    JavaAgent,
-    DockerPlugin
-  )
+  .enablePlugins(dockerPlugins: _*)
   .dependsOn(`common-http`, `currency-core`, `currency-persistence`)
   .settings(
     libraryDependencies := Dependencies.appDependencies
@@ -91,7 +97,6 @@ lazy val sharedJs = shared.js
 lazy val `cal-server` = module("cal", "server")
   .enablePlugins(serverPlugins: _*)
   .settings(
-    cancelable := true,
     fork := true,
     scalaJSProjects := Seq(`cal-client`),
     Assets / pipelineStages := Seq(scalaJSPipeline),
@@ -99,9 +104,7 @@ lazy val `cal-server` = module("cal", "server")
   )
   .settings(serverSettings: _*)
   .dependsOn(`common-http`, sharedJvm)
-  .settings(
-    publish / skip := true
-  )
+  .settings(dockerSettings)
 
 lazy val root = project
   .in(file("."))
@@ -112,19 +115,30 @@ lazy val root = project
     `currency-module`,
     `cal-module`
   )
+  .settings(publish / skip := true)
 
-lazy val `cal-module` = project.aggregate(`cal-client`, `cal-server`)
+lazy val `cal-module` = project
+  .aggregate(`cal-client`, `cal-server`)
+  .settings(publish / skip := true)
 lazy val `currency-module` =
-  project.aggregate(`currency-core`, `currency-persistence`, `currency-service`)
+  project
+    .aggregate(`currency-core`, `currency-persistence`, `currency-service`)
+    .settings(publish / skip := true)
 
 def module(moduleId: String, projectId: String): Project =
   Project(
     id = s"$moduleId-$projectId",
     base = file(s"modules/$moduleId/$projectId")
-  ).settings(
-    name := s"$moduleId/$projectId",
-    libraryDependencies += "org.scalameta" %% "munit" % "0.7.29" % Test
-  )
+  ).enablePlugins(BuildInfoPlugin)
+    .settings(buildInfoPackage := s"$moduleId.$projectId")
+    .settings(
+      name := s"$moduleId/$projectId",
+      libraryDependencies += "org.scalameta" %% "munit" % "0.7.29" % Test
+    )
+    .settings(
+      publish / skip := true,
+      Docker / publish := false
+    )
 
 def scalaJSModule = dev match {
   case true  => ModuleKind.ESModule

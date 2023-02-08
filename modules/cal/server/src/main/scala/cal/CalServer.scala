@@ -22,17 +22,10 @@ object HH:
 object CalServer extends ZIOAppDefault {
 
   val static = Http.collectRoute[Request] {
-    // case Method.GET -> !! =>
-    //   Http
-    //     .fromResource("public/index.html")
+    case Method.GET -> !! =>
+      Http
+        .fromResource("public/index.html")
     // // .addHeaders(Headers.contentType("text/html"))
-    case Method.GET -> !! / "js" =>
-      Handler
-        .fromStream(
-          ZStream.fromResource("public/cal-client-fastopt-bundle.js")
-        )
-        .addHeaders(Headers.contentType("application/javascript"))
-        .toHttp
     case Method.GET -> "" /: "images" /: path =>
       Handler
         .fromStream(ZStream.fromResource(s"public/images/$path"))
@@ -73,7 +66,7 @@ object CalServer extends ZIOAppDefault {
 
   val statics2 = ZIOHttp.toHttp(CalEndpoints.all)
 
-  val app = statics2 // ++ dynamic ++ static ++ ws
+  val app = statics2 ++ dynamic ++ static ++ ws
 
   val config = ServerConfig.default
     .port(8888)
