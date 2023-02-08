@@ -9,7 +9,6 @@ import sttp.tapir.ztapir.ZServerEndpoint
 import org.slf4j.LoggerFactory
 import sttp.tapir.server.ziohttp.ZioHttpInterpreter
 import sttp.capabilities.zio.ZioStreams
-import _root_.metrics.MetricsEndpoints
 import sttp.tapir.Endpoint
 import sttp.tapir.swagger.bundle.SwaggerInterpreter
 import sttp.tapir.server.interceptor.RequestInterceptor

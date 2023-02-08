@@ -1,4 +1,4 @@
-package metrics
+package ziohttp
 
 import sttp.tapir.server.metrics.prometheus.PrometheusMetrics
 import sttp.tapir.ztapir.ZServerEndpoint

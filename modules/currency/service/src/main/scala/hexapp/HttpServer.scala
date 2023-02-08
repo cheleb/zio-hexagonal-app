@@ -15,12 +15,14 @@ import io.getquill.jdbczio.Quill.DataSource
 import sttp.tapir.server.interceptor.metrics.MetricsRequestInterceptor
 import persistance.QuillProviderRepository
 import sttp.capabilities.zio.ZioStreams
-import metrics.MetricsEndpoints
+
+import ziohttp.MetricsEndpoints
 
 import sttp.tapir.Endpoint
 import java.io.IOException
 
 import zio.ZLayer
+
 import ziohttp.ZIOHttp
 
 object Main extends ZIOAppDefault:

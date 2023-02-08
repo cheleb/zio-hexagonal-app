@@ -17,7 +17,7 @@ import io.getquill.jdbczio.Quill.DataSource
 import javax.sql.DataSource
 
 import sttp.capabilities.zio.ZioStreams
-import ziohttp.*
+import ziohttp.ZIOHttp
 import core.Provider
 import core.ProviderUsecase
 import com.github.plokhotnyuk.jsoniter_scala.core.JsonReader

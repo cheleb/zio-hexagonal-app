@@ -31,3 +31,5 @@ metals.sbt
 .idea_modules
 /.worksheet/
 target/
+
+node_modules/
