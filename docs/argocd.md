@@ -23,3 +23,6 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 ```
 
 * login to the UI using `admin` and the password retrieved above http://localhost:8080
+
+
+Now let proceed to [application environment setup](app-setup.md).

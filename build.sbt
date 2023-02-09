@@ -33,7 +33,7 @@ val serverSettings = dev match {
 
 inThisBuild(
   Seq(
-    version := "0.1.2-SNAPSHOT",
+    version := "0.1.4-SNAPSHOT",
     scalaVersion := scala3Version,
     scalafmtAll := true,
     scalafmtOnCompile := true
@@ -41,9 +41,9 @@ inThisBuild(
 )
 
 lazy val dockerSettings = Seq(
-  dockerBaseImage := "azul/zulu-openjdk-centos:19.0.2-19.32.13",
+  dockerBaseImage := "azul/zulu-openjdk-centos:19.0.2-19.32.13-arm64",
   dockerUpdateLatest := true,
-//  Docker / dockerRepository := Some("localhost:5000"),
+  Docker / dockerRepository := Some("localhost:5000"),
   Docker / dockerUsername := Some("cheleb"),
   dockerExposedPorts := Seq(8080)
 )

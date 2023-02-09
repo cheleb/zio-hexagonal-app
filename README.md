@@ -1,15 +1,29 @@
-## sbt project compiled with Scala 3
+## ZIO Hexagonal application example
+
+This is a simple example of a hexagonal application using ZIO.
+
+### Requirements
+
+* JDK 19 
+* sbt 1.8.2
+* Scala 3.2.2
+* kubernetes
 
 ### Usage
 
 This is a normal sbt project. You can compile code with `sbt compile`, run it with `sbt run`, and `sbt console` will start a Scala 3 REPL.
 
-For more information on the sbt-dotty plugin, see the
-[scala3-example-project](https://github.com/scala/scala3-example-project/blob/main/README.md).
+### Running the application
+
+### Sbt launch
+
+The application can be run with `sbt run`. It will start a web server on port 8080. You can then use `curl` to interact with the application:
+
+### Kubernetes launch
+
+The application can be deployed on a kubernetes cluster. You can use the provided `k8s` folder to deploy it. You can use the `k8s/deploy.sh` script to deploy the application on your cluster. You can use the `k8s/undeploy.sh` script to undeploy the application from your cluster.
+
+See the [k8s](docs/k8s.md) documentation for more information.
 
 
-
->   
-> $ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; 
-> $ kubectl port-forward -n zio-hexa services/currencies-svc 8000:8000
 
