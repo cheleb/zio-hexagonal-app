@@ -43,7 +43,7 @@ inThisBuild(
 lazy val dockerSettings = Seq(
   dockerBaseImage := "azul/zulu-openjdk-centos:19.0.2-19.32.13",
   dockerUpdateLatest := true,
-  Docker / dockerRepository := Some("localhost:5000"),
+//  Docker / dockerRepository := Some("localhost:5000"),
   Docker / dockerUsername := Some("cheleb"),
   dockerExposedPorts := Seq(8080)
 )
@@ -52,16 +52,25 @@ lazy val `common-http` = module("common", "http")
   .settings(
     libraryDependencies ++= Dependencies.httpServer
   )
+  .settings(
+    publish / skip := true
+  )
 
 lazy val `currency-core` = module("currency", "core")
   .settings(
     libraryDependencies := Dependencies.coreDependencies
+  )
+  .settings(
+    publish / skip := true
   )
 lazy val `currency-persistence` = module("currency", "persistence")
   .settings(
     libraryDependencies := Dependencies.quillDependencies
   )
   .dependsOn(`currency-core`)
+  .settings(
+    publish / skip := true
+  )
 
 lazy val `currency-service` = module("currency", "service")
   .enablePlugins(dockerPlugins: _*)
@@ -83,6 +92,9 @@ lazy val `cal-client` = scalajsProject("cal", "client")
   .settings(scalacOptions ++= usedScalacOptions)
   .settings(
     libraryDependencies += "dev.cheleb" %%% "laminar-form-derivation" % "0.0.1"
+  )
+  .settings(
+    publish / skip := true
   )
 
 lazy val shared = crossProject(JSPlatform, JVMPlatform)
@@ -134,10 +146,6 @@ def module(moduleId: String, projectId: String): Project =
     .settings(
       name := s"$moduleId/$projectId",
       libraryDependencies += "org.scalameta" %% "munit" % "0.7.29" % Test
-    )
-    .settings(
-      publish / skip := true,
-      Docker / publish := false
     )
 
 def scalaJSModule = dev match {
