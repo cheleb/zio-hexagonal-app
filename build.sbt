@@ -33,7 +33,7 @@ val serverSettings = dev match {
 
 inThisBuild(
   Seq(
-    version := "0.1.4-SNAPSHOT",
+    version := "0.1.7-SNAPSHOT",
     scalaVersion := scala3Version,
     scalafmtAll := true,
     scalafmtOnCompile := true
@@ -91,8 +91,11 @@ lazy val `cal-client` = scalajsProject("cal", "client")
   )
   .settings(scalacOptions ++= usedScalacOptions)
   .settings(
-    libraryDependencies += "dev.cheleb" %%% "laminar-form-derivation" % "0.0.1"
+    libraryDependencies ++= Seq(
+      "dev.cheleb" %%% "laminar-form-derivation" % JSVersions.laminarFormDerivation
+    )
   )
+  .dependsOn(sharedJs)
   .settings(
     publish / skip := true
   )
@@ -100,6 +103,14 @@ lazy val `cal-client` = scalajsProject("cal", "client")
 lazy val shared = crossProject(JSPlatform, JVMPlatform)
   .crossType(CrossType.Pure)
   .in(file("modules/cal/shared"))
+  .settings(
+    libraryDependencies ++= Seq(
+      "com.softwaremill.sttp.client3" %%% "core" % JSVersions.sttpClient,
+      "com.github.plokhotnyuk.jsoniter-scala" %%% "jsoniter-scala-core" % "2.20.6",
+      "com.github.plokhotnyuk.jsoniter-scala" %%% "jsoniter-scala-macros" % "2.20.6",
+      "com.softwaremill.sttp.client3" %%% "jsoniter" % JSVersions.sttpClient
+    )
+  )
   .settings(
     publish / skip := true
   )
@@ -112,7 +123,8 @@ lazy val `cal-server` = module("cal", "server")
     fork := true,
     scalaJSProjects := Seq(`cal-client`),
     Assets / pipelineStages := Seq(scalaJSPipeline),
-    libraryDependencies ++= Dependencies.httpServer
+    libraryDependencies ++= Dependencies.httpServer,
+    libraryDependencies += "com.softwaremill.sttp.client3" %% "zio" % "3.8.11" // for ZIO 2.x
   )
   .settings(serverSettings: _*)
   .dependsOn(`common-http`, sharedJvm)
@@ -130,12 +142,19 @@ lazy val root = project
   .settings(publish / skip := true)
 
 lazy val `cal-module` = project
+  .in(file("modules/cal"))
   .aggregate(`cal-client`, `cal-server`)
-  .settings(publish / skip := true)
+  .settings(
+    publish / skip := true,
+    publishArtifact := false,
+    Compile / skip := true
+  )
+
 lazy val `currency-module` =
   project
+    .in(file("modules/currency"))
     .aggregate(`currency-core`, `currency-persistence`, `currency-service`)
-    .settings(publish / skip := true)
+    .settings(publish / skip := true, publishArtifact := false)
 
 def module(moduleId: String, projectId: String): Project =
   Project(

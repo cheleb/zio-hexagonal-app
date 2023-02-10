@@ -1,5 +1,10 @@
 import sbt._
 
+object JSVersions {
+  val laminarFormDerivation = "0.0.1+0-f4a3bd89+20230210-2129-SNAPSHOT"
+  val sttpClient = "3.8.11"
+}
+
 object Dependencies {
 
   private object Versions {
@@ -8,9 +13,10 @@ object Dependencies {
     val quill = "4.6.0"
     val scala3 = "3.2.2"
     val tapir = "1.2.7"
-    val zio = "2.0.7"
+    val zio = "2.0.8"
     val zioConfig = "3.0.7"
     val zioHttp = "0.0.4"
+
   }
 
   lazy val coreDependencies = Seq(
