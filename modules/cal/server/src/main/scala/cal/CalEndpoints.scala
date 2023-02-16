@@ -60,6 +60,6 @@ object CalEndpoints {
         ZIO.succeed(scala.util.Right(currency))
     )
 
-  val all = List(public, postCurrency)
+  val all = List(public, getCurrency, postCurrency)
 
 }
