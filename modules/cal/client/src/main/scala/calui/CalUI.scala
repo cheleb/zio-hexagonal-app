@@ -74,7 +74,7 @@ object App extends App {
         }
       ),
       Button(
-        "Refresh",
+        "Refresh list",
         onClick --> { _ =>
           basicRequest
             .get(uri"http://localhost:8888/currency")

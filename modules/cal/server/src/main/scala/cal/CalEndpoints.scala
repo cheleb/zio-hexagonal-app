@@ -1,5 +1,7 @@
 package cal
 
+import views.*
+
 import sttp.tapir.ztapir.*
 import zio.*
 import zio.http.Http
@@ -21,6 +23,8 @@ object CalEndpoints {
   private val backend = HttpURLConnectionBackend()
 
   given Schema[CurrencyCode] = Schema.string[CurrencyCode]
+  given Schema[Error] = Schema.string[Error]
+
   given Codec[String, CurrencyCode, TextPlain] =
     Codec.string.mapDecode(str => DecodeResult.Value(CurrencyCode(str)))(
       _.toString()
@@ -35,13 +39,14 @@ object CalEndpoints {
   val getCurrency: ZServerEndpoint[Any, Any] = endpoint.get
     .in("currency")
     .out(jsonBody[List[Currency]])
+    .errorOut(jsonBody[Error])
     .serverLogic(_ =>
       HttpClientZioBackend().flatMap { backend =>
         basicRequest
           .get(uri"http://currencies-svc:8000/currency")
           .response(asJson[List[Currency]])
           .send(backend)
-          .map(_.body.left.map(_ => ()))
+          .map(_.body.left.map(ex => Error(400, s"Error: ${ex.getMessage()}")))
       }
     )
 
