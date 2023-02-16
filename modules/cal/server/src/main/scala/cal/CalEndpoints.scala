@@ -32,6 +32,19 @@ object CalEndpoints {
       "public"
     )
 
+  val getCurrency: ZServerEndpoint[Any, Any] = endpoint.get
+    .in("currency")
+    .out(jsonBody[List[Currency]])
+    .serverLogic(_ =>
+      HttpClientZioBackend().flatMap { backend =>
+        basicRequest
+          .get(uri"http://currencies-svc:8000/currency")
+          .response(asJson[List[Currency]])
+          .send(backend)
+          .map(_.body.left.map(_ => ()))
+      }
+    )
+
   val postCurrency: ZServerEndpoint[Any, Any] = endpoint.post
     .in("currency")
     .in(jsonBody[Currency])

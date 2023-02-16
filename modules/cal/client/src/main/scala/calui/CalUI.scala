@@ -22,6 +22,9 @@ import com.github.plokhotnyuk.jsoniter_scala.core.JsonValueCodec
 import com.github.plokhotnyuk.jsoniter_scala.macros.JsonCodecMaker
 import com.github.plokhotnyuk.jsoniter_scala.core.JsonReader
 import com.github.plokhotnyuk.jsoniter_scala.core.JsonWriter
+import scala.util.Failure
+import scala.util.Success
+import scala.concurrent.ExecutionContext.Implicits.global
 
 val itemVar = Var(Currency(CurrencyCode.apply("EUR"), "Euro", "€"))
 
@@ -39,6 +42,8 @@ object App extends App {
         onInput.mapToValue.map(CurrencyCode.apply) --> variable.writer
       )
 
+  val currencies = Var(List.empty[Currency])
+
   val myApp =
     div(
       child <-- itemVar.signal.map { item =>
@@ -55,6 +60,35 @@ object App extends App {
             .post(uri"http://localhost:8888/currency")
             .body(itemVar.now())
             .send(backend)
+
+//        itemVar.update(_.copy(code = CurrencyCode.apply("USD")))
+        }
+      ),
+      ul(
+        children <-- currencies.signal.map { items =>
+          items.map { item =>
+            li(
+              s"$item"
+            )
+          }
+        }
+      ),
+      Button(
+        "Refresh",
+        onClick --> { _ =>
+          basicRequest
+            .get(uri"http://localhost:8888/currency")
+            .response(asJson[List[Currency]])
+            .send(backend)
+            .onComplete {
+              case Failure(error) => println(error)
+              case Success(response) =>
+                response.body match {
+                  case Left(error)  => println(error)
+                  case Right(value) => currencies.update(_ => value)
+                }
+
+            }
 
 //        itemVar.update(_.copy(code = CurrencyCode.apply("USD")))
         }

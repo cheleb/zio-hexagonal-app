@@ -13,6 +13,8 @@ object CurrencyCode:
 final case class Currency(code: CurrencyCode, name: String, symbol: String)
 
 object Currency:
+  given JsonValueCodec[List[Currency]] = JsonCodecMaker.make
+
   given JsonValueCodec[CurrencyCode] =
     new JsonValueCodec[CurrencyCode] {
       def decodeValue(in: JsonReader, default: CurrencyCode): CurrencyCode =
