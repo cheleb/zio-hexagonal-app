@@ -52,7 +52,8 @@ object Main extends ZIOAppDefault:
 
     val port = sys.env.get("HTTP_PORT").flatMap(_.toIntOption).getOrElse(8000)
 
-    startServer(app.withDefaultErrorResponse)
+    Server
+      .serve(app.withDefaultErrorResponse)
       .provide(
         ServerConfig.live(ServerConfig.default.port(port)),
         Server.live,
@@ -63,14 +64,3 @@ object Main extends ZIOAppDefault:
 //        ProviderUsecase.live
         // ZLayer.Debug.tree
       )
-
-  def startServer[R](
-      app: App[R]
-  ): ZIO[R & Server, IOException, Int] =
-    for
-      actualPort <- Server.serve(app.withDefaultErrorResponse)
-      _ <- Console.printLine(
-        s"Go to http://localhost:${actualPort}/docs to open SwaggerUI. Press ENTER key to exit."
-      )
-      _ <- Console.readLine
-    yield actualPort

@@ -1,29 +1,25 @@
 package hexapp
 
+import core.*
+
+import com.github.plokhotnyuk.jsoniter_scala.core.JsonReader
+import com.github.plokhotnyuk.jsoniter_scala.core.JsonWriter
+import com.github.plokhotnyuk.jsoniter_scala.core.JsonValueCodec
+import com.github.plokhotnyuk.jsoniter_scala.macros.JsonCodecMaker
+
+import sttp.capabilities.zio.ZioStreams
 import sttp.tapir.*
 import sttp.tapir.json.*
 import sttp.tapir.ztapir.ZServerEndpoint
-import zio.*
 import sttp.tapir.swagger.bundle.SwaggerInterpreter
 import sttp.tapir.generic.auto.*
 import sttp.tapir.json.jsoniter.*
-import core.*
-import com.github.plokhotnyuk.jsoniter_scala.core.JsonValueCodec
-import com.github.plokhotnyuk.jsoniter_scala.macros.JsonCodecMaker
-import core.CurrencyUseCase
-import core.CurrencyRepository
-import persistance.QuillCurrencyRepository
-import io.getquill.jdbczio.Quill.DataSource
-import javax.sql.DataSource
-
-import sttp.capabilities.zio.ZioStreams
-import ziohttp.ZIOHttp
-import core.Provider
-import core.ProviderUsecase
-import com.github.plokhotnyuk.jsoniter_scala.core.JsonReader
-import com.github.plokhotnyuk.jsoniter_scala.core.JsonWriter
 import sttp.tapir.Codec.PlainCodec
 import sttp.tapir.CodecFormat.TextPlain
+
+import zio.*
+
+import ziohttp.ZIOHttp
 object CurrencyEndpoints:
 
   given JsonValueCodec[CurrencyCode] =

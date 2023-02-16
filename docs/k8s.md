@@ -41,3 +41,11 @@ https://minikube.sigs.k8s.io/docs/handbook/registry/#enabling-insecure-registrie
 
 Follow with the next step to install the [ArgoCD](argocd.md) operator.
 
+## Appication priority
+
+The application priority is used to determine the order in which applications may be OOMKilled by the Kubernetes scheduler.
+
+
+* Guaranteed, won't be killed.
+* Burstable, may be killed if really necessary.
+* BestEffort, may be killed at any time.

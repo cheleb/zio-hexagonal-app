@@ -9,3 +9,5 @@ addSbtPlugin("org.scala-js" % "sbt-jsdependencies" % "1.0.2")
 
 addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.21.1")
 addSbtPlugin("ch.epfl.scala" % "sbt-web-scalajs-bundler" % "0.21.1")
+
+addSbtPlugin("com.dwijnand" % "sbt-dynver" % "4.1.1")

@@ -75,5 +75,7 @@ object CalServer extends ZIOAppDefault {
   val configLayer = ServerConfig.live(config)
 
   override val run =
-    Server.serve(app.withDefaultErrorResponse).provide(configLayer, Server.live)
+    Server
+      .serve(app.withDefaultErrorResponse)
+      .provide(configLayer, Server.live)
 }

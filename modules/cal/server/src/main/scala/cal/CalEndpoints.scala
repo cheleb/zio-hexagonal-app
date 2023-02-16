@@ -8,10 +8,6 @@ import sttp.tapir.json.jsoniter.*
 import sttp.tapir.generic.auto.*
 
 import sttp.tapir.static.Resources
-import com.github.plokhotnyuk.jsoniter_scala.core.JsonValueCodec
-import com.github.plokhotnyuk.jsoniter_scala.macros.JsonCodecMaker
-import com.github.plokhotnyuk.jsoniter_scala.core.JsonReader
-import com.github.plokhotnyuk.jsoniter_scala.core.JsonWriter
 import sttp.client3.*
 import sttp.client3.jsoniter.*
 import sttp.tapir.Schema
@@ -23,19 +19,6 @@ import sttp.client3.httpclient.zio.HttpClientZioBackend
 object CalEndpoints {
 
   private val backend = HttpURLConnectionBackend()
-
-  given JsonValueCodec[CurrencyCode] =
-    new JsonValueCodec[CurrencyCode] {
-      def decodeValue(in: JsonReader, default: CurrencyCode): CurrencyCode =
-        CurrencyCode(in.readString(""))
-
-      def encodeValue(x: CurrencyCode, out: JsonWriter): Unit =
-        out.writeVal(x.toString())
-
-      val nullValue: CurrencyCode = null.asInstanceOf[CurrencyCode]
-    }
-
-  given codecCurrency: JsonValueCodec[Currency] = JsonCodecMaker.make
 
   given Schema[CurrencyCode] = Schema.string[CurrencyCode]
   given Codec[String, CurrencyCode, TextPlain] =

@@ -27,18 +27,6 @@ val itemVar = Var(Currency(CurrencyCode.apply("EUR"), "Euro", "€"))
 
 object App extends App {
 
-  given JsonValueCodec[CurrencyCode] =
-    new JsonValueCodec[CurrencyCode] {
-      def decodeValue(in: JsonReader, default: CurrencyCode): CurrencyCode =
-        CurrencyCode(in.readString(""))
-
-      def encodeValue(x: CurrencyCode, out: JsonWriter): Unit =
-        out.writeVal(x.toString())
-
-      val nullValue: CurrencyCode = null.asInstanceOf[CurrencyCode]
-    }
-
-  given codecCurrency: JsonValueCodec[Currency] = JsonCodecMaker.make
   val backend = FetchBackend()
 
   inline given Form[CurrencyCode] with

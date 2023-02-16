@@ -33,8 +33,8 @@ val serverSettings = dev match {
 
 inThisBuild(
   Seq(
-    version := "0.1.7-SNAPSHOT",
     scalaVersion := scala3Version,
+    run / fork := true,
     scalafmtAll := true,
     scalafmtOnCompile := true
   )
