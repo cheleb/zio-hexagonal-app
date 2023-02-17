@@ -53,7 +53,7 @@ object App extends App {
       },
       Form.renderVar(itemVar),
       Button(
-        "Edit",
+        "Insert",
         onClick --> { _ =>
           println(itemVar.now())
           basicRequest
