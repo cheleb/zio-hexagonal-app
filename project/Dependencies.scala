@@ -53,6 +53,6 @@ object Dependencies {
     "com.softwaremill.sttp.tapir" %% "tapir-sttp-stub-server" % Versions.tapir % Test,
     "dev.zio" %% "zio-test" % "2.0.5" % Test,
     "dev.zio" %% "zio-test-sbt" % "2.0.9" % Test,
-    "com.softwaremill.sttp.client3" %% "jsoniter" % "3.8.10" % Test
+    "com.softwaremill.sttp.client3" %% "jsoniter" % "3.8.11" % Test
   )
 }
