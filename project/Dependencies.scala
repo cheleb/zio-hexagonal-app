@@ -1,7 +1,7 @@
 import sbt._
 
 object JSVersions {
-  val laminarFormDerivation = "0.0.1+0-f4a3bd89+20230210-2129-SNAPSHOT"
+  val laminarFormDerivation = "0.0.2"
   val sttpClient = "3.8.11"
 }
 
