@@ -51,7 +51,7 @@ object Dependencies {
     "com.github.plokhotnyuk.jsoniter-scala" %% "jsoniter-scala-macros" % "2.20.7",
     "ch.qos.logback" % "logback-classic" % "1.4.5",
     "com.softwaremill.sttp.tapir" %% "tapir-sttp-stub-server" % Versions.tapir % Test,
-    "dev.zio" %% "zio-test" % "2.0.5" % Test,
+    "dev.zio" %% "zio-test" % "2.0.9" % Test,
     "dev.zio" %% "zio-test-sbt" % "2.0.9" % Test,
     "com.softwaremill.sttp.client3" %% "jsoniter" % "3.8.10" % Test
   )
