@@ -31,7 +31,7 @@ kubectl port-forward -n ziohexa services/cal-server-svc 8888:8888
 Et voilà, the app is deployed and ready to use.
 
 
-1. ArcoCD UI to see the app deployed: http://localhost:8080/applications
+1. ArgoCD UI to see the app deployed: http://localhost:8080/applications
 2. App UI to access the app: http://localhost:8888
 
 Soon ...
