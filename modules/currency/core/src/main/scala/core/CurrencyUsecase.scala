@@ -6,8 +6,6 @@ import core.CurrencyRepository
 import core.CurrencyUseCase
 import core.Currency
 case class CurrencyUseCase(repo: CurrencyRepository) {
-  def create(name: String, symbol: String, code: String): Currency =
-    Currency(CurrencyCode(name), symbol, code)
 
   def persist(currency: Currency): ZIO[Any, Throwable, Unit] =
     for {
