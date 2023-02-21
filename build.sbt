@@ -107,7 +107,7 @@ lazy val shared = crossProject(JSPlatform, JVMPlatform)
     libraryDependencies ++= Seq(
       "com.softwaremill.sttp.client3" %%% "core" % JSVersions.sttpClient,
       "com.github.plokhotnyuk.jsoniter-scala" %%% "jsoniter-scala-core" % "2.20.7",
-      "com.github.plokhotnyuk.jsoniter-scala" %%% "jsoniter-scala-macros" % "2.20.7",
+      "com.github.plokhotnyuk.jsoniter-scala" %%% "jsoniter-scala-macros" % "2.21.0",
       "com.softwaremill.sttp.client3" %%% "jsoniter" % JSVersions.sttpClient
     )
   )
