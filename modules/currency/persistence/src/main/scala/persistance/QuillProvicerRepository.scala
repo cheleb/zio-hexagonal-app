@@ -36,7 +36,6 @@ case class QuillProviderRepository(
 object QuillProviderRepository {
   def live: ZLayer[DataSource, Nothing, ProviderRepository] =
     ZLayer.fromFunction { (dataSource: DataSource) =>
-      println(System.identityHashCode(dataSource))
       QuillProviderRepository(new PostgresZioJdbcContext(SnakeCase), dataSource)
     }
 }

@@ -46,7 +46,6 @@ case class QuillCurrencyRepository(
 object QuillCurrencyRepository {
   def live: ZLayer[DataSource, Nothing, CurrencyRepository] =
     ZLayer.fromFunction { (dataSource: DataSource) =>
-      println(System.identityHashCode(dataSource))
       QuillCurrencyRepository(new PostgresZioJdbcContext(SnakeCase), dataSource)
     }
 }
