@@ -8,9 +8,11 @@ object JSVersions {
 object Dependencies {
 
   private object Versions {
+    val iron = "2.0.0"
     val flyway = "9.11.0"
     val postgresql = "42.2.8"
     val quill = "4.6.0.1"
+    val munit = "0.7.29"
     val scala3 = "3.2.2"
     val tapir = "1.2.8"
     val zio = "2.0.9"
@@ -22,7 +24,9 @@ object Dependencies {
   lazy val coreDependencies = Seq(
     "dev.zio" %% "zio" % Versions.zio,
     "dev.zio" %% "zio-streams" % Versions.zio,
-    "dev.zio" %% "zio-test" % Versions.zio % Test
+    "io.github.iltotore" %% "iron-zio-json" % Versions.iron,
+    "dev.zio" %% "zio-test" % Versions.zio % Test,
+    "org.scalameta" %% "munit" % Versions.munit % Test
   )
 
   lazy val appDependencies =
