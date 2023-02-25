@@ -21,7 +21,7 @@ cd zio-hexagonal-app-config
 kubectl apply -f application.yaml
 ```
 
-Forwards the port 888 to access the app:
+Forwards the port 8888 to access the app:
 
 ```shell
 kubectl port-forward -n ziohexa services/cal-server-svc 8888:8888

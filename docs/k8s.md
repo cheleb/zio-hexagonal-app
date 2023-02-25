@@ -49,3 +49,8 @@ The application priority is used to determine the order in which applications ma
 * Guaranteed, won't be killed.
 * Burstable, may be killed if really necessary.
 * BestEffort, may be killed at any time.
+
+
+## Developer experience 
+
+* https://inlets.dev/blog/2022/06/24/fixing-kubectl-port-forward.html
