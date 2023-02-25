@@ -1,9 +1,9 @@
 package cal.views
 
-import com.github.plokhotnyuk.jsoniter_scala.core.JsonValueCodec
-import com.github.plokhotnyuk.jsoniter_scala.macros.JsonCodecMaker
+import zio.json.JsonCodec
+import zio.json.DeriveJsonCodec
 
 final case class Error(code: Int, message: String)
 
 object Error:
-  given JsonValueCodec[Error] = JsonCodecMaker.make
+  given JsonCodec[Error] = DeriveJsonCodec.gen[Error]

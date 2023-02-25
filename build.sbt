@@ -106,9 +106,11 @@ lazy val shared = crossProject(JSPlatform, JVMPlatform)
   .settings(
     libraryDependencies ++= Seq(
       "com.softwaremill.sttp.client3" %%% "core" % JSVersions.sttpClient,
+      "io.github.iltotore" %% "iron-zio-json" % JSVersions.iron,
       "com.github.plokhotnyuk.jsoniter-scala" %%% "jsoniter-scala-core" % "2.21.0",
       "com.github.plokhotnyuk.jsoniter-scala" %%% "jsoniter-scala-macros" % "2.21.2",
-      "com.softwaremill.sttp.client3" %%% "jsoniter" % JSVersions.sttpClient
+      "com.softwaremill.sttp.client3" %%% "jsoniter" % JSVersions.sttpClient,
+      "com.softwaremill.sttp.client3" %%% "zio-json" % JSVersions.sttpClient // for ZIO 2.x
     )
   )
   .settings(

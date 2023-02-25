@@ -3,6 +3,7 @@ import sbt._
 object JSVersions {
   val laminarFormDerivation = "0.0.2"
   val sttpClient = "3.8.11"
+  val iron = "2.0.0"
 }
 
 object Dependencies {
@@ -14,7 +15,7 @@ object Dependencies {
     val quill = "4.6.0.1"
     val munit = "0.7.29"
     val scala3 = "3.2.2"
-    val tapir = "1.2.8"
+    val tapir = "1.2.9"
     val zio = "2.0.9"
     val zioConfig = "3.0.7"
     val zioHttp = "0.0.4"
@@ -51,6 +52,7 @@ object Dependencies {
     "com.softwaremill.sttp.tapir" %% "tapir-prometheus-metrics" % Versions.tapir,
     "com.softwaremill.sttp.tapir" %% "tapir-swagger-ui-bundle" % Versions.tapir,
     "com.softwaremill.sttp.tapir" %% "tapir-jsoniter-scala" % Versions.tapir,
+    "com.softwaremill.sttp.tapir" %% "tapir-json-zio" % Versions.tapir,
     "com.github.plokhotnyuk.jsoniter-scala" %% "jsoniter-scala-core" % "2.21.0",
     "com.github.plokhotnyuk.jsoniter-scala" %% "jsoniter-scala-macros" % "2.21.2",
     "ch.qos.logback" % "logback-classic" % "1.4.5",

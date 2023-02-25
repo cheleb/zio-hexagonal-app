@@ -16,12 +16,8 @@ import be.doeraene.webcomponents.ui5.Input
 import be.doeraene.webcomponents.ui5.Button
 import sttp.client3.FetchBackend
 import sttp.client3._
-import sttp.client3.jsoniter._
+import sttp.client3.ziojson.*
 
-import com.github.plokhotnyuk.jsoniter_scala.core.JsonValueCodec
-import com.github.plokhotnyuk.jsoniter_scala.macros.JsonCodecMaker
-import com.github.plokhotnyuk.jsoniter_scala.core.JsonReader
-import com.github.plokhotnyuk.jsoniter_scala.core.JsonWriter
 import scala.util.Failure
 import scala.util.Success
 import scala.concurrent.ExecutionContext.Implicits.global

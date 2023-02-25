@@ -2,46 +2,39 @@ package hexapp
 
 import core.*
 
-import com.github.plokhotnyuk.jsoniter_scala.core.JsonReader
-import com.github.plokhotnyuk.jsoniter_scala.core.JsonWriter
-import com.github.plokhotnyuk.jsoniter_scala.core.JsonValueCodec
-import com.github.plokhotnyuk.jsoniter_scala.macros.JsonCodecMaker
-
 import sttp.capabilities.zio.ZioStreams
 import sttp.tapir.*
 import sttp.tapir.json.*
 import sttp.tapir.ztapir.ZServerEndpoint
 import sttp.tapir.swagger.bundle.SwaggerInterpreter
 import sttp.tapir.generic.auto.*
-import sttp.tapir.json.jsoniter.*
+import sttp.tapir.json.zio._
 import sttp.tapir.Codec.PlainCodec
 import sttp.tapir.CodecFormat.TextPlain
 
 import zio.*
 
 import ziohttp.ZIOHttp
+import _root_.zio.json.JsonCodec
+import _root_.zio.json.JsonEncoder
+import _root_.zio.json.internal.Write
+import _root_.zio.json.JsonDecoder
+import _root_.zio.json.JsonError
+import _root_.zio.json.internal.RetractReader
+import _root_.zio.json.DeriveJsonCodec
 object CurrencyEndpoints:
-
-  given JsonValueCodec[CurrencyCode] =
-    new JsonValueCodec[CurrencyCode] {
-      def decodeValue(in: JsonReader, default: CurrencyCode): CurrencyCode =
-        CurrencyCode(in.readString(""))
-
-      def encodeValue(x: CurrencyCode, out: JsonWriter): Unit =
-        out.writeVal(x.toString())
-
-      val nullValue: CurrencyCode = null.asInstanceOf[CurrencyCode]
-    }
-
-  given codecCurrency: JsonValueCodec[Currency] = JsonCodecMaker.make
-  given codecCurrencie: JsonValueCodec[List[Currency]] = JsonCodecMaker.make
-  given codecBooks: JsonValueCodec[Provider] = JsonCodecMaker.make
 
   given Schema[CurrencyCode] = Schema.string[CurrencyCode]
   given Codec[String, CurrencyCode, TextPlain] =
     Codec.string.mapDecode(str => DecodeResult.Value(CurrencyCode(str)))(
       _.toString()
     )
+
+  given JsonDecoder[CurrencyCode] =
+    JsonDecoder[String].map(CurrencyCode.apply)
+  given JsonEncoder[CurrencyCode] =
+    JsonEncoder[String].contramap(_.toString())
+  given JsonCodec[Currency] = DeriveJsonCodec.gen[Currency]
 
   val createCurrencyEndpoint: PublicEndpoint[Currency, Unit, Unit, Any] =
     endpoint.post

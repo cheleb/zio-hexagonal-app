@@ -1,9 +1,9 @@
 package cal
 
-import com.github.plokhotnyuk.jsoniter_scala.core.JsonValueCodec
-import com.github.plokhotnyuk.jsoniter_scala.macros.JsonCodecMaker
-import com.github.plokhotnyuk.jsoniter_scala.core.JsonReader
-import com.github.plokhotnyuk.jsoniter_scala.core.JsonWriter
+import zio.json.JsonDecoder
+import zio.json.JsonEncoder
+import zio.json.JsonCodec
+import zio.json.DeriveJsonCodec
 
 opaque type CurrencyCode = String
 
@@ -13,17 +13,8 @@ object CurrencyCode:
 final case class Currency(code: CurrencyCode, name: String, symbol: String)
 
 object Currency:
-  given JsonValueCodec[List[Currency]] = JsonCodecMaker.make
-
-  given JsonValueCodec[CurrencyCode] =
-    new JsonValueCodec[CurrencyCode] {
-      def decodeValue(in: JsonReader, default: CurrencyCode): CurrencyCode =
-        CurrencyCode(in.readString(""))
-
-      def encodeValue(x: CurrencyCode, out: JsonWriter): Unit =
-        out.writeVal(x.toString())
-
-      val nullValue: CurrencyCode = null.asInstanceOf[CurrencyCode]
-    }
-
-  given codecCurrency: JsonValueCodec[Currency] = JsonCodecMaker.make
+  given JsonDecoder[CurrencyCode] =
+    JsonDecoder[String].map(CurrencyCode.apply)
+  given JsonEncoder[CurrencyCode] =
+    JsonEncoder[String].contramap(_.toString())
+  given JsonCodec[Currency] = DeriveJsonCodec.gen[Currency]
