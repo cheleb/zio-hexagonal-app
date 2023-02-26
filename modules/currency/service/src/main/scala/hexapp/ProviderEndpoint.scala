@@ -1,20 +1,20 @@
 package hexapp
 
-import com.github.plokhotnyuk.jsoniter_scala.core.JsonValueCodec
-import com.github.plokhotnyuk.jsoniter_scala.macros.JsonCodecMaker
 import core.*
 import sttp.tapir.*
 import sttp.tapir.ztapir.ZServerEndpoint
 import sttp.tapir.generic.auto._
-import sttp.tapir.json.jsoniter.*
+import sttp.tapir.json.zio.*
 
 import sttp.model.StatusCode
 import zio.*
 import ziohttp.*
+import zio.json.JsonCodec
+import zio.json.DeriveJsonCodec
 
 object ProviderEndpoint:
 
-  given JsonValueCodec[Provider] = JsonCodecMaker.make
+  given JsonCodec[Provider] = DeriveJsonCodec.gen
 
   val createProviderEndpoint: PublicEndpoint[Provider, Unit, Unit, Any] =
     endpoint.post
