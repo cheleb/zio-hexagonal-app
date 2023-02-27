@@ -101,7 +101,7 @@ lazy val `cal-client` = scalajsProject("cal", "client")
     scalaJSUseMainModuleInitializer := true,
     scalaJSLinkerConfig ~= {
       _.withModuleKind(scalaJSModule)
-//        .withSourceMap(true)
+        .withSourceMap(false)
         .withModuleSplitStyle(ModuleSplitStyle.SmallModulesFor(List("client")))
     }
   )
