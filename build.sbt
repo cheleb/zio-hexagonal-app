@@ -48,9 +48,17 @@ lazy val dockerSettings = Seq(
   dockerExposedPorts := Seq(8080)
 )
 
+lazy val `common-rdbms` = module("common", "rdbms")
+  .settings(
+    libraryDependencies ++= Dependencies.rdbmsDependencies
+  )
+  .settings(
+    publish / skip := true
+  )
+
 lazy val `common-http` = module("common", "http")
   .settings(
-    libraryDependencies ++= Dependencies.httpServer
+    libraryDependencies ++= Dependencies.httpServerDependencies
   )
   .settings(
     publish / skip := true
@@ -74,7 +82,12 @@ lazy val `currency-persistence` = module("currency", "persistence")
 
 lazy val `currency-service` = module("currency", "service")
   .enablePlugins(dockerPlugins: _*)
-  .dependsOn(`common-http`, `currency-core`, `currency-persistence`)
+  .dependsOn(
+    `common-http`,
+    `common-rdbms`,
+    `currency-core`,
+    `currency-persistence`
+  )
   .settings(
     libraryDependencies := Dependencies.appDependencies
   )
@@ -122,7 +135,7 @@ lazy val `cal-server` = module("cal", "server")
     fork := true,
     scalaJSProjects := Seq(`cal-client`),
     Assets / pipelineStages := Seq(scalaJSPipeline),
-    libraryDependencies ++= Dependencies.httpServer,
+    libraryDependencies ++= Dependencies.httpServerDependencies ++ Dependencies.rdbmsDependencies,
     libraryDependencies += "com.softwaremill.sttp.client3" %% "zio" % "3.8.11" // for ZIO 2.x
   )
   .settings(serverSettings: _*)

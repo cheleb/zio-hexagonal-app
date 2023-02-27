@@ -22,22 +22,29 @@ object Dependencies {
 
   }
 
-  lazy val coreDependencies = Seq(
+  lazy val zioDependencies = Seq(
     "dev.zio" %% "zio" % Versions.zio,
+    "dev.zio" %% "zio-config-typesafe" % Versions.zioConfig,
+    "dev.zio" %% "zio-test" % Versions.zio % Test,
+    "dev.zio" %% "zio-test-sbt" % Versions.zio % Test
+  )
+
+  lazy val rdbmsDependencies = zioDependencies ++ Seq(
+    "org.flywaydb" % "flyway-core" % Versions.flyway,
+    "org.postgresql" % "postgresql" % Versions.postgresql % Runtime
+  )
+
+  lazy val coreDependencies = zioDependencies ++ Seq(
     "dev.zio" %% "zio-streams" % Versions.zio,
     "io.github.iltotore" %% "iron-zio-json" % Versions.iron,
-    "dev.zio" %% "zio-test" % Versions.zio % Test,
     "org.scalameta" %% "munit" % Versions.munit % Test
   )
 
   lazy val appDependencies =
-    httpServer ++ Seq(
+    httpServerDependencies ++ Seq(
       "dev.zio" %% "zio-config" % Versions.zioConfig,
       "dev.zio" %% "zio-config-magnolia" % Versions.zioConfig,
-//      "dev.zio" %% "zio-config-refined" % Versions.zioConfig,
-      "dev.zio" %% "zio-config-typesafe" % Versions.zioConfig,
-      "org.flywaydb" % "flyway-core" % Versions.flyway,
-      "org.postgresql" % "postgresql" % Versions.postgresql % "runtime"
+      "org.postgresql" % "postgresql" % Versions.postgresql % Runtime
     )
 
   val quillDependencies = Seq(
@@ -46,16 +53,13 @@ object Dependencies {
     "ch.qos.logback" % "logback-classic" % "1.4.5" % "runtime"
   )
 
-  lazy val httpServer = Seq(
-//    "dev.zio" %% "zio-http" % Versions.zioHttp,
+  lazy val httpServerDependencies = zioDependencies ++ Seq(
     "com.softwaremill.sttp.tapir" %% "tapir-zio-http-server" % Versions.tapir,
     "com.softwaremill.sttp.tapir" %% "tapir-prometheus-metrics" % Versions.tapir,
     "com.softwaremill.sttp.tapir" %% "tapir-swagger-ui-bundle" % Versions.tapir,
     "com.softwaremill.sttp.tapir" %% "tapir-jsoniter-scala" % Versions.tapir,
     "com.softwaremill.sttp.tapir" %% "tapir-json-zio" % Versions.tapir,
     "ch.qos.logback" % "logback-classic" % "1.4.5",
-    "com.softwaremill.sttp.tapir" %% "tapir-sttp-stub-server" % Versions.tapir % Test,
-    "dev.zio" %% "zio-test" % "2.0.9" % Test,
-    "dev.zio" %% "zio-test-sbt" % "2.0.9" % Test
+    "com.softwaremill.sttp.tapir" %% "tapir-sttp-stub-server" % Versions.tapir % Test
   )
 }
