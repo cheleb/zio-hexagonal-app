@@ -1,3 +1,4 @@
+import scala.sys.process
 import org.scalajs.linker.interface.ModuleSplitStyle
 
 val scala3Version = "3.2.2"
@@ -93,6 +94,8 @@ lazy val `currency-service` = module("currency", "service")
   )
   .settings(dockerSettings)
 
+lazy val npmInstallDependences = taskKey[Unit]("npm install")
+
 lazy val `cal-client` = scalajsProject("cal", "client")
   .settings(
     scalaJSUseMainModuleInitializer := true,
@@ -102,6 +105,12 @@ lazy val `cal-client` = scalajsProject("cal", "client")
         .withModuleSplitStyle(ModuleSplitStyle.SmallModulesFor(List("client")))
     }
   )
+  // .settings(
+  //   npmInstallDependences := {
+  //     process.Process("npm install", baseDirectory.value).!
+  //   },
+  //   (Compile / compile) := ((Compile / compile) dependsOn npmInstallDependences).value
+  // )
   .settings(scalacOptions ++= usedScalacOptions)
   .settings(
     libraryDependencies ++= Seq(
