@@ -1,7 +1,5 @@
 package cal
 
-import views.*
-
 import sttp.tapir.ztapir.*
 import zio.*
 import zio.http.Http
@@ -18,6 +16,7 @@ import sttp.tapir.DecodeResult
 import sttp.tapir.CodecFormat.TextPlain
 import sttp.client3.httpclient.zio.HttpClientZioBackend
 
+import views.*
 object CalEndpoints {
 
   private val backend = HttpURLConnectionBackend()
@@ -38,23 +37,25 @@ object CalEndpoints {
 
   val getCurrency: ZServerEndpoint[Any, Any] = endpoint.get
     .in("currency")
-    .out(jsonBody[List[Currency]])
-    .errorOut(jsonBody[Error])
+    .out(jsonBody[List[CurrencyView]])
+    .errorOut(jsonBody[ErrorView])
     .serverLogic(_ =>
       HttpClientZioBackend().flatMap { backend =>
         basicRequest
           .get(uri"http://currencies-svc:8000/currency")
-          .response(asJson[List[Currency]])
+          .response(asJson[List[CurrencyView]])
           .send(backend)
-          .map(_.body.left.map(ex => Error(400, s"Error: ${ex.getMessage()}")))
+          .map(
+            _.body.left.map(ex => ErrorView(400, s"Error: ${ex.getMessage()}"))
+          )
       }
     )
 
   val postCurrency: ZServerEndpoint[Any, Any] = endpoint.post
     .in("currency")
-    .in(jsonBody[Currency])
-    .out(jsonBody[Currency])
-    .serverLogic((currency: Currency) =>
+    .in(jsonBody[CurrencyView])
+    .out(jsonBody[CurrencyView])
+    .serverLogic((currency: CurrencyView) =>
       ZIO.debug(currency) *>
         HttpClientZioBackend().flatMap { backend =>
           basicRequest

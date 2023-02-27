@@ -8,8 +8,8 @@ import magnolia1.*
 import be.doeraene.webcomponents.ui5.SideNavigation
 import be.doeraene.webcomponents.ui5.Icon
 
-import cal.Currency
-import cal.CurrencyCode
+import cal.views.CurrencyView
+import cal.views.CurrencyCode
 import dev.cheleb.scalamigen.Editable
 import be.doeraene.webcomponents.ui5.UList
 import be.doeraene.webcomponents.ui5.Input
@@ -22,23 +22,19 @@ import scala.util.Failure
 import scala.util.Success
 import scala.concurrent.ExecutionContext.Implicits.global
 
-val itemVar = Var(Currency(CurrencyCode.apply("EUR"), "Euro", "€"))
+import forms.Forms.given
+
+val itemVar = Var(CurrencyView(CurrencyCode.apply("EUR"), "Euro", "€"))
+
+// val currencyPairVar = Var(
+//   CurrencyPair(CurrencyCode.apply("EUR"), CurrencyCode.apply("USD"))
+// )
 
 object App extends App {
 
   val backend = FetchBackend()
 
-  inline given Form[CurrencyCode] with
-    def render(
-        variable: Var[CurrencyCode]
-    ): HtmlElement =
-      Input(
-        _.showClearIcon := true,
-        value <-- variable.signal.map(_.toString()),
-        onInput.mapToValue.map(CurrencyCode.apply) --> variable.writer
-      )
-
-  val currencies = Var(List.empty[Currency])
+  val currencies = Var(List.empty[CurrencyView])
 
   val myApp =
     div(
@@ -74,7 +70,7 @@ object App extends App {
         onClick --> { _ =>
           basicRequest
             .get(uri"http://localhost:8888/currency")
-            .response(asJson[List[Currency]])
+            .response(asJson[List[CurrencyView]])
             .send(backend)
             .onComplete {
               case Failure(error) => println(error)

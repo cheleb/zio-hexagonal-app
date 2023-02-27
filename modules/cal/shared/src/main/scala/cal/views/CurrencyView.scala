@@ -1,4 +1,4 @@
-package cal
+package cal.views
 
 import zio.json.JsonDecoder
 import zio.json.JsonEncoder
@@ -10,11 +10,11 @@ opaque type CurrencyCode = String
 object CurrencyCode:
   def apply(code: String): CurrencyCode = code
 
-final case class Currency(code: CurrencyCode, name: String, symbol: String)
+final case class CurrencyView(code: CurrencyCode, name: String, symbol: String)
 
-object Currency:
+object CurrencyView:
   given JsonDecoder[CurrencyCode] =
     JsonDecoder[String].map(CurrencyCode.apply)
   given JsonEncoder[CurrencyCode] =
     JsonEncoder[String].contramap(_.toString())
-  given JsonCodec[Currency] = DeriveJsonCodec.gen
+  given JsonCodec[CurrencyView] = DeriveJsonCodec.gen
