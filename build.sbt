@@ -131,7 +131,7 @@ lazy val shared = crossProject(JSPlatform, JVMPlatform)
   .settings(
     libraryDependencies ++= Seq(
       "com.softwaremill.sttp.client3" %%% "core" % JSVersions.sttpClient,
-      "io.github.iltotore" %% "iron-zio-json" % JSVersions.iron,
+      "io.github.iltotore" %%% "iron-zio-json" % JSVersions.iron,
       "com.softwaremill.sttp.client3" %%% "zio-json" % JSVersions.sttpClient // for ZIO 2.x
     )
   )

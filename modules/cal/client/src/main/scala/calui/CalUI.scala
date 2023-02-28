@@ -8,8 +8,7 @@ import magnolia1.*
 import be.doeraene.webcomponents.ui5.SideNavigation
 import be.doeraene.webcomponents.ui5.Icon
 
-import cal.views.CurrencyView
-import cal.views.CurrencyCode
+import cal.views.*
 import dev.cheleb.scalamigen.Editable
 import be.doeraene.webcomponents.ui5.UList
 import be.doeraene.webcomponents.ui5.Input
@@ -23,12 +22,24 @@ import scala.util.Success
 import scala.concurrent.ExecutionContext.Implicits.global
 
 import forms.Forms.given
+import dev.cheleb.scalamigen.Defaultable
+
+case class Address(street: String, city: String, country: String)
+
+case class Person(name: String, age: Int, address: Option[Address])
 
 val itemVar = Var(CurrencyView(CurrencyCode.apply("EUR"), "Euro", "€"))
 
-// val currencyPairVar = Var(
-//   CurrencyPair(CurrencyCode.apply("EUR"), CurrencyCode.apply("USD"))
-// )
+import io.github.iltotore.iron.{given, *}
+import io.github.iltotore.iron.constraint.all.{given, *}
+
+val currencyPairVar = Var(
+  CurrencyPairView(CurrencyCode.apply("EUR"), CurrencyCode.apply("USD"), 1.0)
+  // Person("John", 42, Some(Address("Main Street", "New York", "USA")))
+)
+
+given Defaultable[Address] with
+  def default = Address("", "", "")
 
 object App extends App {
 
@@ -38,11 +49,19 @@ object App extends App {
 
   val myApp =
     div(
-      child <-- itemVar.signal.map { item =>
+      div(child <-- itemVar.signal.map { item =>
         div(
           s"$item"
         )
-      },
+      }),
+      div(
+        child <-- currencyPairVar.signal.map { item =>
+          div(
+            s"$item"
+          )
+        }
+      ),
+      Form.renderVar(currencyPairVar),
       Form.renderVar(itemVar),
       Button(
         "Insert",
