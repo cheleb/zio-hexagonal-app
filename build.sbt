@@ -145,7 +145,7 @@ lazy val `cal-server` = module("cal", "server")
     scalaJSProjects := Seq(`cal-client`),
     Assets / pipelineStages := Seq(scalaJSPipeline),
     libraryDependencies ++= Dependencies.httpServerDependencies ++ Dependencies.rdbmsDependencies,
-    libraryDependencies += "com.softwaremill.sttp.client3" %% "zio" % "3.8.11" // for ZIO 2.x
+    libraryDependencies += "com.softwaremill.sttp.client3" %% "zio" % "3.8.13" // for ZIO 2.x
   )
   .settings(serverSettings: _*)
   .dependsOn(`common-http`, sharedJvm)
