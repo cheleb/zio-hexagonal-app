@@ -17,4 +17,4 @@ object Currency:
     JsonDecoder[String].map(CurrencyCode.apply)
   given JsonEncoder[CurrencyCode] =
     JsonEncoder[String].contramap(_.toString())
-  given JsonCodec[Currency] = DeriveJsonCodec.gen[Currency]
+  given JsonCodec[Currency] = DeriveJsonCodec.gen
