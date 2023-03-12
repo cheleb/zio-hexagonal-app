@@ -15,8 +15,8 @@ object Dependencies {
     val quill = "4.6.0.1"
     val munit = "0.7.29"
     val scala3 = "3.2.2"
-    val tapir = "1.2.9"
-    val zio = "2.0.9"
+    val tapir = "1.2.10"
+    val zio = "2.0.10"
     val zioConfig = "3.0.7"
     val zioHttp = "0.0.4"
 
