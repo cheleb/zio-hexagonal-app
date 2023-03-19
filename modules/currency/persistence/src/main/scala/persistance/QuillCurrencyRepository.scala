@@ -1,6 +1,6 @@
 package persistance
 
-import core.*
+import currency.core.*
 import zio.*
 import io.getquill.*
 import javax.sql.DataSource

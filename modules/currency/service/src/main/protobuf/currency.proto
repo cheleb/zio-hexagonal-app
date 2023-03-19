@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "co.ledger.cal.currencies.grpc";
+// option java_outer_classname = "HelloWorldProto";
+// option objc_class_prefix = "HLW";
+
+service CurrencyRepository {
+  rpc GetCurrencies(CurrenciesRequest) returns (CurrenciesResponse) {}
+}
+
+message CurrenciesRequest { string currency = 1; }
+
+message CurrenciesResponse { repeated Currency currencies = 1; }
+
+message Currency {
+  string name = 1;
+  string code = 2;
+  string symbol = 3;
+}

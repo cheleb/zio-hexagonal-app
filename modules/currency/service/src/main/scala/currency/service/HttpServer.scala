@@ -1,14 +1,14 @@
-package hexapp
+package currency.service
 
 import flywayutil.FlywayMigration
 
 import zio.{Console, ExitCode, Scope, Task, ZIO, ZIOAppArgs, ZIOAppDefault}
 import zio.http.{Server, ServerConfig, App}
 
-import core.CurrencyUseCase
-import core.ProviderUsecase
-import core.Provider
-import core.Currency
+import currency.core.CurrencyUseCase
+import currency.core.ProviderUsecase
+import currency.core.Provider
+import currency.core.Currency
 
 import persistance.QuillCurrencyRepository
 import io.getquill.jdbczio.Quill.DataSource
@@ -25,6 +25,14 @@ import zio.ZLayer
 
 import ziohttp.ZIOHttp
 
+import currency.service.CurrencyEndpoints
+import currency.service.HelloEndpoint
+import currency.service.ProviderEndpoint
+import scalapb.zio_grpc.ServiceList
+import scalapb.zio_grpc.ServerLayer
+import io.grpc.ServerBuilder
+import scalapb.zio_grpc.{Server => GrpcServer}
+import co.ledger.cal.currencies.grpc.currency.ZioCurrency
 object Main extends ZIOAppDefault:
   override def run: ZIO[Any with ZIOAppArgs with Scope, Any, Any] = for
     config <- AppConfig.load
@@ -52,6 +60,7 @@ object Main extends ZIOAppDefault:
 
     val port = sys.env.get("HTTP_PORT").flatMap(_.toIntOption).getOrElse(8000)
 
+    // grpcApp.launch <&>
     Server
       .serve(app.withDefaultErrorResponse)
       .provide(
@@ -61,6 +70,21 @@ object Main extends ZIOAppDefault:
         QuillCurrencyRepository.live,
         QuillProviderRepository.live,
         CurrencyUseCase.live
-//        ProviderUsecase.live
-        // ZLayer.Debug.tree
+//        ProviderUsecase.live,
+//        ZLayer.Debug.tree
       )
+
+  private def grpcApp(
+      config: AppConfig
+  ): ZLayer[CurrencyService, Throwable, GrpcServer] =
+    val serviceList =
+      ServiceList.addFromEnvironment[CurrencyService]
+    val serverLayer =
+      ServerLayer.fromServiceList(
+        ServerBuilder.forPort(9000),
+        serviceList
+      )
+
+    ZLayer.makeSome[CurrencyService, GrpcServer](
+      serverLayer
+    )

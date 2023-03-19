@@ -1,4 +1,4 @@
-package hexapp
+package currency.service
 
 import flywayutil.DatabaseConfig
 

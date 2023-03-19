@@ -92,6 +92,9 @@ lazy val `currency-service` = module("currency", "service")
   .settings(
     libraryDependencies := Dependencies.appDependencies
   )
+  .settings(
+    zioGrpcSettings
+  )
   .settings(dockerSettings)
 
 lazy val npmInstallDependences = taskKey[Unit]("npm install")
@@ -229,3 +232,25 @@ def nexusNpmSettings =
       )
     )
     .toSeq
+
+  lazy val zioGrpcSettings = Seq(
+    Compile / PB.targets := Seq(
+      scalapb.gen(grpc = true) -> (Compile / sourceManaged).value / "scalapb",
+      scalapb.zio_grpc.ZioCodeGenerator -> (Compile / sourceManaged).value / "scalapb"
+    ),
+    libraryDependencies ++= Seq(
+      "io.grpc" % "grpc-netty" % "1.50.1",
+      "com.thesamet.scalapb.zio-grpc" %% "zio-grpc-core" % "0.6.0-test8",
+      "com.thesamet.scalapb" %% "scalapb-runtime-grpc" % scalapb.compiler.Version.scalapbVersion,
+      "io.envoyproxy.protoc-gen-validate" % "pgv-java-stub" % "0.6.13",
+      "com.thesamet.scalapb" %% "scalapb-runtime" % scalapb.compiler.Version.scalapbVersion % "protobuf",
+      "com.thesamet.scalapb.common-protos" %% "proto-google-common-protos-scalapb_0.11" % "2.9.6-0" % "protobuf",
+      "com.thesamet.scalapb.common-protos" %% "proto-google-common-protos-scalapb_0.11" % "2.9.6-0",
+      "com.thesamet.scalapb.common-protos" %% "pgv-proto-scalapb_0.11" % "0.6.13-0" % "protobuf",
+      "com.thesamet.scalapb.common-protos" %% "pgv-proto-scalapb_0.11" % "0.6.13-0"
+    )
+    // libraryDependencies ++= Seq(
+    //   "dev.zio" %% "zio-grpc" % "0.9.0",
+    //   "dev.zio" %% "zio-grpc-interop" % "0.9.0"
+    // )
+  )
