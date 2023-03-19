@@ -1,8 +1,6 @@
-package core
+package currency.core
 
 import zio.*
-
-import core.Currency
 
 class ProviderUsecase(repo: ProviderRepository) {
 

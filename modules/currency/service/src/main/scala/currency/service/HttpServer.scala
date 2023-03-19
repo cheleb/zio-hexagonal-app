@@ -1,14 +1,14 @@
-package hexapp
+package currency.service
 
 import flywayutil.FlywayMigration
 
 import zio.{Console, ExitCode, Scope, Task, ZIO, ZIOAppArgs, ZIOAppDefault}
 import zio.http.{Server, ServerConfig, App}
 
-import core.CurrencyUseCase
-import core.ProviderUsecase
-import core.Provider
-import core.Currency
+import currency.core.CurrencyUseCase
+import currency.core.ProviderUsecase
+import currency.core.Provider
+import currency.core.Currency
 
 import persistance.QuillCurrencyRepository
 import io.getquill.jdbczio.Quill.DataSource
@@ -23,7 +23,18 @@ import java.io.IOException
 
 import zio.ZLayer
 
-import ziohttp.ZIOHttp
+import currency.service.rest.CurrencyEndpoints
+import currency.service.rest.HelloEndpoint
+import currency.service.rest.ProviderEndpoint
+import scalapb.zio_grpc.ServiceList
+import scalapb.zio_grpc.ServerLayer
+import io.grpc.ServerBuilder
+import co.ledger.cal.currencies.grpc.currency.ZioCurrency
+
+import rest.RestApp
+import grpc.GrpcApp
+import currency.service.grpc.CurrencyService
+//import javax.sql.DataSource
 
 object Main extends ZIOAppDefault:
   override def run: ZIO[Any with ZIOAppArgs with Scope, Any, Any] = for
@@ -33,34 +44,19 @@ object Main extends ZIOAppDefault:
     _ <- app(config)
   yield ()
 
+  private def servers(config: AppConfig) =
+    GrpcApp.server.launch
+      <&>
+        RestApp.server
+
   private def app(config: AppConfig) =
-
-    val currencyDocEndpoints = ZIOHttp.swagger(
-      "hexagonal-app",
-      "1.0.0",
-      HelloEndpoint.apiDocEndpoints ++
-        CurrencyEndpoints.apiDocEndpoints ++
-        ProviderEndpoint.apiDocEndpoints
-    )
-
-    val app = HelloEndpoint.apiEndpoints ++
-      CurrencyEndpoints.apiEndpoints ++
-      ProviderEndpoint.apiEndpoints.provideLayer(ProviderUsecase.live) ++
-      //
-      ZIOHttp.toHttp(currencyDocEndpoints) ++
-      ZIOHttp.toHttp(MetricsEndpoints.metricsEndpoint)
-
-    val port = sys.env.get("HTTP_PORT").flatMap(_.toIntOption).getOrElse(8000)
-
-    Server
-      .serve(app.withDefaultErrorResponse)
+    servers(config)
       .provide(
-        ServerConfig.live(ServerConfig.default.port(port)),
-        Server.live,
         DataSource.fromConfig(config.database.asConfig),
         QuillCurrencyRepository.live,
         QuillProviderRepository.live,
         CurrencyUseCase.live
-//        ProviderUsecase.live
-        // ZLayer.Debug.tree
+
+//      ProviderUsecase.live,
+//      ZLayer.Debug.mermaid
       )

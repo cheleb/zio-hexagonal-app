@@ -1,4 +1,4 @@
-package core
+package currency.core
 
 class CurrencyPairSpec extends munit.FunSuite {
   test("hello") {

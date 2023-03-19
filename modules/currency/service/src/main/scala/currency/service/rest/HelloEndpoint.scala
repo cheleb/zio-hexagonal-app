@@ -1,4 +1,4 @@
-package hexapp
+package currency.service.rest
 
 import sttp.model.StatusCode
 import sttp.tapir.*

@@ -1,6 +1,5 @@
-package hexapp
+package currency.service.rest
 
-import core.*
 import sttp.tapir.*
 import sttp.tapir.ztapir.ZServerEndpoint
 import sttp.tapir.generic.auto._
@@ -12,6 +11,10 @@ import ziohttp.*
 import zio.json.JsonCodec
 import zio.json.DeriveJsonCodec
 
+import currency.core.ProviderUsecase
+import currency.core.Provider
+import currency.core.ProviderUsecase
+import currency.core.Provider
 object ProviderEndpoint:
 
   given JsonCodec[Provider] = DeriveJsonCodec.gen

@@ -1,10 +1,7 @@
-package core
+package currency.core
 
 import zio.*
 
-import core.CurrencyRepository
-import core.CurrencyUseCase
-import core.Currency
 case class CurrencyUseCase(repo: CurrencyRepository) {
 
   def persist(currency: Currency): ZIO[Any, Throwable, Unit] =

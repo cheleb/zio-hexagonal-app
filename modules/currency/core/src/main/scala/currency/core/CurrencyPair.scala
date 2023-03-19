@@ -1,4 +1,4 @@
-package core
+package currency.core
 
 import io.github.iltotore.iron.{given, *}
 import io.github.iltotore.iron.constraint.all.{given, *}
