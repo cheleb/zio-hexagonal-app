@@ -10,8 +10,8 @@ object Dependencies {
 
   private object Versions {
     val iron = "2.0.0"
-    val flyway = "9.11.0"
-    val postgresql = "42.2.8"
+    val flyway = "9.16.1"
+    val postgresql = "42.6.0"
     val quill = "4.6.0.1"
     val munit = "0.7.29"
     val scala3 = "3.2.2"
