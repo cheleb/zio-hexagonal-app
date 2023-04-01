@@ -62,9 +62,17 @@ kubectl label namespace ziohexa istio-injection=enabled
 ```
 ### Restart the application
 
+### After
+
 ```bash
+```
 
-
+```
+NAME                          READY   STATUS    RESTARTS      AGE
+cal-server-54dfdf44d9-xfl5h   2/2     Running   0             27s
+currencies-7778b5cff9-57p8j   2/2     Running   2 (16s ago)   27s
+postgresql-sfs-0              2/2     Running   0             27s
+```
 
 
 ## Performance impact
