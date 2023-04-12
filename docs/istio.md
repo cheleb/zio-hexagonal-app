@@ -39,7 +39,7 @@ data plane version: 1.17.1 (2 proxies)
 ## Install addons (Jaeger, Kiali, Grafana, Prometheus...)
 
 ```bash
-$ kubectl apply -f ./samples/addons
+kubectl apply -f ./samples/addons
 ```
 
 

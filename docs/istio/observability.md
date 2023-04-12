@@ -1,15 +1,23 @@
 # Grafana
 
-```istioctl dashboard grafana```
+```bash
+istioctl dashboard grafana
+```
 
 # Kiali
 
-```istioctl dashboard kiali```
+```bash
+istioctl dashboard kiali
+```
 
 # Jaeger
 
-```istioctl dashboard jaeger```
+```bash
+istioctl dashboard jaeger
+```
 
 # Prometheus
 
-```istioctl dashboard prometheus```
+```bash
+istioctl dashboard prometheus
+```
