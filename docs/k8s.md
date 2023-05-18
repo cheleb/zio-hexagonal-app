@@ -6,14 +6,21 @@ For development purposes, we use minikube to run a local Kubernetes cluster. Thi
 
 If you are using a local registry, you need to enable insecure registries in minikube. This is required because the registry is not using TLS.
 
+Start minikube with the following options:
+
 ```shell
-minikube start --cpus 6 --memory 8g --insecure-registry "10.0.0.0/24"
+minikube start --cpus 6 --memory 8g --insecure-registry "10.0.0.0/24 --nodes 4"
 ```
 
-Then addon the registry addon:
+Then update addons
+
+* enable the registry addon
+* disable the storage-provisioner addon
 
 ```shell
 minikube addons enable registry
+minikube addons disable storage-provisioner
+kubectl delete storageclass standard
 ```
 
 ![registry port](images/registry-vm-port.png)
@@ -32,6 +39,14 @@ You can now push images to the registry and have access to the catalog:
 ```shell
 curl localhost:55541/v2/_catalog
 ```
+
+
+## Enabling volume with minikube multinode
+
+```shell
+kubectl apply -f k8s/kubevirt-hostpath-provisioner.yaml
+```
+
 
 For more information, see the minikube documentation:
 
