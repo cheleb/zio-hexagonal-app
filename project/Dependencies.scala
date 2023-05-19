@@ -1,7 +1,7 @@
 import sbt._
 
 object JSVersions {
-  val laminarFormDerivation = "0.0.2"
+  val laminarFormDerivation = "0.6.0"
   val sttpClient = "3.8.11"
   val iron = "2.0.0"
 }
@@ -15,7 +15,7 @@ object Dependencies {
     val quill = "4.6.0.1"
     val munit = "0.7.29"
     val scala3 = "3.2.2"
-    val tapir = "1.2.10"
+    val tapir = "1.4.0"
     val zio = "2.0.10"
     val zioConfig = "3.0.7"
     val zioHttp = "0.0.4"

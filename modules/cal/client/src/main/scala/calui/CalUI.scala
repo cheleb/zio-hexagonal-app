@@ -1,7 +1,7 @@
 package calui
 
 import dev.cheleb.scalamigen.*
-import dev.cheleb.scalamigen.Form.given
+import dev.cheleb.scalamigen.forms.given
 import org.scalajs.dom
 import com.raquo.laminar.api.L.*
 import magnolia1.*
@@ -9,19 +9,24 @@ import be.doeraene.webcomponents.ui5.SideNavigation
 import be.doeraene.webcomponents.ui5.Icon
 
 import cal.views.*
-import dev.cheleb.scalamigen.Editable
+
 import be.doeraene.webcomponents.ui5.UList
 import be.doeraene.webcomponents.ui5.Input
 import be.doeraene.webcomponents.ui5.Button
+
+import io.github.iltotore.iron.{given, *}
+import io.github.iltotore.iron.constraint.all.{given, *}
+
 import sttp.client3.FetchBackend
 import sttp.client3._
 import sttp.client3.ziojson.*
+
+import _root_.forms.Forms.given
 
 import scala.util.Failure
 import scala.util.Success
 import scala.concurrent.ExecutionContext.Implicits.global
 
-import forms.Forms.given
 import dev.cheleb.scalamigen.Defaultable
 
 case class Address(street: String, city: String, country: String)
@@ -30,12 +35,8 @@ case class Person(name: String, age: Int, address: Option[Address])
 
 val itemVar = Var(CurrencyView(CurrencyCode.apply("EUR"), "Euro", "€"))
 
-import io.github.iltotore.iron.{given, *}
-import io.github.iltotore.iron.constraint.all.{given, *}
-
 val currencyPairVar = Var(
   CurrencyPairView(CurrencyCode.apply("EUR"), CurrencyCode.apply("USD"), 1.0)
-  // Person("John", 42, Some(Address("Main Street", "New York", "USA")))
 )
 
 given Defaultable[Address] with
@@ -72,7 +73,6 @@ object App extends App {
             .body(itemVar.now())
             .send(backend)
 
-//        itemVar.update(_.copy(code = CurrencyCode.apply("USD")))
         }
       ),
       ul(

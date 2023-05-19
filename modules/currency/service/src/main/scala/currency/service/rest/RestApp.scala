@@ -4,10 +4,11 @@ import ziohttp.ZIOHttp
 import currency.core.ProviderUsecase
 import ziohttp.MetricsEndpoints
 import zio.http.Server
-import zio.http.ServerConfig
+
 import zio.ZIO
 import currency.core.CurrencyUseCase
 import currency.core.ProviderRepository
+import zio.ZLayer
 
 object RestApp {
 
@@ -32,7 +33,7 @@ object RestApp {
     Server
       .serve(app.withDefaultErrorResponse)
       .provideSome[CurrencyUseCase & ProviderRepository](
-        ServerConfig.live(ServerConfig.default.port(port)),
+        ZLayer.succeed(Server.Config.default.port(port)),
         Server.live
       )
 

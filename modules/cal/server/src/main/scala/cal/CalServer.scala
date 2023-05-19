@@ -4,24 +4,25 @@ import zio.*
 import zio.http.*
 import zio.http.socket.{WebSocketChannelEvent, WebSocketFrame}
 
-import zio.http.model.Method
+import zio.http.Method
 import zio.stream.ZStream
-import zio.http.model.Headers
+import zio.http.Headers
+
 import zio.http.Path.Segment
 import zio.http.Path.Segment.Root
 import zio.http.ChannelEvent.ChannelRead
 import ziohttp.ZIOHttp
 
-object HH:
-  def contentType(path: Path): Headers =
-    path.lastSegment
-      .map(p => p.text.substring(p.text.lastIndexOf('.') + 1))
-      .map(ext => Headers.contentType(s"image/$ext"))
-      .getOrElse(Headers.empty)
+object HH
+// def contentType(path: Path): Headers =
+//   path.lastSegment
+//     .map(p => p.text.substring(p.text.lastIndexOf('.') + 1))
+//     .map(ext => Headers.contentType(s"image/$ext"))
+//     .getOrElse(Headers.empty)
 
 object CalServer extends ZIOAppDefault {
 
-  val static = Http.collectRoute[Request] {
+  val static = Http.collectHttp[Request] {
     case Method.GET -> !! =>
       Http
         .fromResource("public/index.html")
@@ -29,7 +30,7 @@ object CalServer extends ZIOAppDefault {
     case Method.GET -> "" /: "images" /: path =>
       Handler
         .fromStream(ZStream.fromResource(s"public/images/$path"))
-        .addHeaders(HH.contentType(path))
+//        .addHeaders(HH.contentType(path))
         .toHttp
     case Method.GET -> !! / "css" =>
       Handler.fromStream(ZStream.fromResource("public/style.css")).toHttp
@@ -68,11 +69,11 @@ object CalServer extends ZIOAppDefault {
 
   val app = statics2 ++ dynamic ++ static ++ ws
 
-  val config = ServerConfig.default
+  val config = Server.Config.default
     .port(8888)
 //    .leakDetection(LeakDetectionLevel.PARANOID)
 //    .maxThreads(nThreads)
-  val configLayer = ServerConfig.live(config)
+  val configLayer = ZLayer.succeed(config)
 
   override val run =
     Server
