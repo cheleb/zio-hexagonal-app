@@ -15,13 +15,18 @@ import scala.util.Success
 
 object Forms {
   inline given Form[CurrencyCode] with
-    def render(
-        variable: Var[CurrencyCode]
+    override def render(
+        variable: Var[CurrencyCode],
+        syncParent: () => Unit,
+        values: List[CurrencyCode] = List.empty
     ): HtmlElement =
       Input(
         _.showClearIcon := true,
         value <-- variable.signal.map(_.toString()),
-        onInput.mapToValue.map(CurrencyCode.apply) --> variable.writer
+        onInput.mapToValue.map(CurrencyCode.apply) --> { v =>
+          variable.set(v)
+          syncParent()
+        }
       )
 
   // inline given Form[IronType[Double, Positive]] with
