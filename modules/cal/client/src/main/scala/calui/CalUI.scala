@@ -1,7 +1,6 @@
 package calui
 
-import dev.cheleb.scalamigen.*
-import dev.cheleb.scalamigen.forms.given
+import dev.cheleb.scalamigen.{*, given}
 import org.scalajs.dom
 import com.raquo.laminar.api.L.*
 import magnolia1.*
@@ -21,8 +20,6 @@ import sttp.client3.FetchBackend
 import sttp.client3._
 import sttp.client3.ziojson.*
 
-import _root_.forms.Forms.given
-
 import scala.util.Failure
 import scala.util.Success
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -41,6 +38,8 @@ val currencyPairVar = Var(
 
 given Defaultable[Address] with
   def default = Address("", "", "")
+
+given Form[CurrencyCode] = stringForm(CurrencyCode.apply)
 
 object App extends App {
 
