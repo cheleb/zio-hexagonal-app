@@ -12,6 +12,23 @@ kubectl create namespace ziohexa
 kubectl -n ziohexa  create secret generic postgresql-secrets --from-literal=POSTGRES_PASSWORD=*************
 ```
 
+## Build and deploy the app
+
+```shell
+git clone git@github.com:cheleb/zio-hexagonal-app.git
+cd zio-hexagonal-app
+sbt Docker/publish
+```
+
+Double check that the image is available:
+
+👉 Adapt the port to your environment
+
+
+```shell
+curl localhost:32770/v2/_catalog 
+```
+
 
 Now all is ready to deploy the app.
 

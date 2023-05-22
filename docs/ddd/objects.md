@@ -29,3 +29,11 @@ They are immutable hence:
 Value objects are usually designed as such when we care about the values of the object and not about its identity:
 
 - "What they are" rather than "Who/which they are".
+
+# Aggregates
+
+Aggregates are a cluster of objects that are treated as a unit for the purpose of data changes.
+
+Aggregates rules:
+
+* Reference only the aggregate root.

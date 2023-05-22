@@ -3,7 +3,7 @@ package currency.service
 import flywayutil.FlywayMigration
 
 import zio.{Console, ExitCode, Scope, Task, ZIO, ZIOAppArgs, ZIOAppDefault}
-import zio.http.{Server, ServerConfig, App}
+import zio.http.{Server, App}
 
 import currency.core.CurrencyUseCase
 import currency.core.ProviderUsecase
