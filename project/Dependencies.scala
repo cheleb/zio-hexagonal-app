@@ -10,7 +10,7 @@ object Dependencies {
 
   private object Versions {
     val iron = "2.0.0"
-    val flyway = "9.18.0"
+    val flyway = "9.20.0"
     val postgresql = "42.6.0"
     val quill = "4.6.0.1"
     val munit = "0.7.29"
@@ -59,7 +59,7 @@ object Dependencies {
     "com.softwaremill.sttp.tapir" %% "tapir-swagger-ui-bundle" % Versions.tapir,
     "com.softwaremill.sttp.tapir" %% "tapir-jsoniter-scala" % Versions.tapir,
     "com.softwaremill.sttp.tapir" %% "tapir-json-zio" % Versions.tapir,
-    "ch.qos.logback" % "logback-classic" % "1.4.7",
+    "ch.qos.logback" % "logback-classic" % "1.4.8",
     "com.softwaremill.sttp.tapir" %% "tapir-sttp-stub-server" % Versions.tapir % Test
   )
 }
