@@ -97,7 +97,7 @@ ephemeral:
 hooks:
   image:
     repository: lachlanevenson/k8s-kubectl
-    tag: v1.23.2
+    tag: v1.25.4
     securityContext: {}
     #  runAsUser: 1001
     #  runAsGroup: 1001
