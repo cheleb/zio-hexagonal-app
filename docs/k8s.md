@@ -9,8 +9,10 @@ If you are using a local registry, you need to enable insecure registries in min
 Start minikube with the following options:
 
 ```shell
-minikube start --cpus 6 --memory 8g --insecure-registry "10.0.0.0/24 --nodes 4"
+minikube start --cpus 6 --memory 8g --insecure-registry "10.0.0.0/24"
 ```
+
+
 
 Then update addons
 
@@ -19,9 +21,8 @@ Then update addons
 
 ```shell
 minikube addons enable registry
-minikube addons disable storage-provisioner
-kubectl delete storageclass standard
 ```
+
 
 ![registry port](images/registry-vm-port.png)
 
@@ -42,6 +43,17 @@ curl localhost:55541/v2/_catalog
 
 
 ## Enabling volume with minikube multinode
+
+```shell
+minikube start --cpus 6 --memory 8g --insecure-registry "10.0.0.0/24" --nodes 4
+```
+
+```shell
+minikube addons enable registry
+minikube addons disable storage-provisioner
+kubectl delete storageclass standard
+```
+
 
 ```shell
 kubectl apply -f k8s/kubevirt-hostpath-provisioner.yaml
