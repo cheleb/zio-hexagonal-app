@@ -1,0 +1,14 @@
+apiVersion: "zookeeper.pravega.io/v1beta1"
+kind: "ZookeeperCluster"
+metadata:
+  name: "zookeeper"
+spec:
+  replicas: 1
+  persistence:
+    reclaimPolicy: Delete
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "standard"
+      resources:
+        requests:
+          storage: 10Gi
