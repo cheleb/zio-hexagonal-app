@@ -2,13 +2,17 @@ package currency.core
 
 import zio.*
 
-case class CurrencyUseCase(repo: CurrencyRepository) {
+case class CurrencyUseCase(
+    repo: CurrencyRepository,
+    currencyStream: CurrencyStream
+) {
 
   def persist(currency: Currency): ZIO[Any, Throwable, Unit] =
     for {
       _ <- ZIO.logInfo(s"Persisting $currency")
       _ <- repo.store(currency)
-      _ <- ZIO.logInfo(s"Persisted $currency")
+      event <- currencyStream.publish(currency)
+      _ <- ZIO.logInfo(s"Persisted $currency $event")
     } yield ()
 
   def list: ZIO[Any, Throwable, List[Currency]] =
@@ -28,8 +32,9 @@ case class CurrencyUseCase(repo: CurrencyRepository) {
 }
 
 object CurrencyUseCase {
-  val live: ZLayer[CurrencyRepository, Nothing, CurrencyUseCase] =
-    ZLayer.fromFunction(CurrencyUseCase(_))
+  val live
+      : ZLayer[CurrencyRepository & CurrencyStream, Nothing, CurrencyUseCase] =
+    ZLayer.fromFunction(CurrencyUseCase(_, _))
 
   def persist(currency: Currency): ZIO[CurrencyUseCase, Throwable, Unit] =
     ZIO.serviceWithZIO[CurrencyUseCase](_.persist(currency))

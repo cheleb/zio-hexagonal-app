@@ -34,6 +34,9 @@ import co.ledger.cal.currencies.grpc.currency.ZioCurrency
 import rest.RestApp
 import grpc.GrpcApp
 import currency.service.grpc.CurrencyService
+import currency.events.PravegaCurrencyStream
+import zio.pravega.PravegaStream
+import zio.pravega.PravegaClientConfig
 //import javax.sql.DataSource
 
 object Main extends ZIOAppDefault:
@@ -52,10 +55,14 @@ object Main extends ZIOAppDefault:
   private def app(config: AppConfig) =
     servers(config)
       .provide(
+        Scope.default,
         DataSource.fromConfig(config.database.asConfig),
         QuillCurrencyRepository.live,
         QuillProviderRepository.live,
-        CurrencyUseCase.live
+        CurrencyUseCase.live,
+        PravegaClientConfig.live,
+        PravegaCurrencyStream.live,
+        PravegaStream.fromScope("cal")
 
 //      ProviderUsecase.live,
 //      ZLayer.Debug.mermaid

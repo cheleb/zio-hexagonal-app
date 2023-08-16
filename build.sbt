@@ -72,6 +72,15 @@ lazy val `currency-core` = module("currency", "core")
   .settings(
     publish / skip := true
   )
+lazy val `currency-events` = module("currency", "events")
+  .settings(
+    libraryDependencies := Dependencies.pravegaDependencies
+  )
+  .dependsOn(`currency-core`)
+  .settings(
+    publish / skip := true
+  )
+
 lazy val `currency-persistence` = module("currency", "persistence")
   .settings(
     libraryDependencies := Dependencies.quillDependencies
@@ -87,7 +96,8 @@ lazy val `currency-service` = module("currency", "service")
     `common-http`,
     `common-rdbms`,
     `currency-core`,
-    `currency-persistence`
+    `currency-persistence`,
+    `currency-events`
   )
   .settings(
     libraryDependencies := Dependencies.appDependencies

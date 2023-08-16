@@ -14,6 +14,7 @@ object Dependencies {
     val postgresql = "42.6.0"
     val quill = "4.6.0.1"
     val munit = "0.7.29"
+    val zioPravega = "0.6.1"
     val scala3 = "3.2.2"
     val tapir = "1.4.0"
     val zio = "2.0.13"
@@ -38,6 +39,10 @@ object Dependencies {
     "dev.zio" %% "zio-streams" % Versions.zio,
     "io.github.iltotore" %% "iron-zio-json" % Versions.iron,
     "org.scalameta" %% "munit" % Versions.munit % Test
+  )
+
+  lazy val pravegaDependencies = zioDependencies ++ Seq(
+    "dev.cheleb" %% "zio-pravega" % Versions.zioPravega
   )
 
   lazy val appDependencies =
