@@ -20,7 +20,7 @@ case class CurrencyUseCase(
     for {
       _ <- ZIO.logInfo(s"Listing currencies")
       currencies <- repo.list
-      _ <- ZIO.logInfo(s"Listed currencies")
+      _ <- ZIO.logInfo(s"Listed ${currencies.size} currencies")
     } yield currencies
 
   def find(code: CurrencyCode): ZIO[Any, Throwable, Option[Currency]] =
