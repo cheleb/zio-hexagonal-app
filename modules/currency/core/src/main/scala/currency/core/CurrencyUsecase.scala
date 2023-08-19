@@ -11,8 +11,9 @@ case class CurrencyUseCase(
     for {
       _ <- ZIO.logInfo(s"Persisting $currency")
       _ <- repo.store(currency)
+      _ <- ZIO.logInfo(s"Persisted $currency")
       event <- currencyStream.publish(currency)
-      _ <- ZIO.logInfo(s"Persisted $currency $event")
+      _ <- ZIO.logInfo(s"Published event $event")
     } yield ()
 
   def list: ZIO[Any, Throwable, List[Currency]] =
