@@ -64,7 +64,7 @@ object Main extends ZIOAppDefault:
         // PravegaClientConfig.live,
         ZLayer.succeed(
           PravegaClientConfig.builder
-            .controllerURI(new URI("tcp://orthanc:9090"))
+            .controllerURI(config.pravega.controllerURI)
             .build()
         ),
         PravegaCurrencyStream.live,
