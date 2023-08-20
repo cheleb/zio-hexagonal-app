@@ -61,10 +61,10 @@ object Main extends ZIOAppDefault:
         QuillCurrencyRepository.live,
         QuillProviderRepository.live,
         CurrencyUseCase.live,
+        // PravegaClientConfig.live,
         ZLayer.succeed(
           PravegaClientConfig.builder
             .controllerURI(new URI("tcp://orthanc:9090"))
-            .enableTlsToController(true)
             .build()
         ),
         PravegaCurrencyStream.live,
