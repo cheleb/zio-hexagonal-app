@@ -17,7 +17,7 @@ object Dependencies {
     val zioPravega = "0.6.1"
     val scala3 = "3.2.2"
     val tapir = "1.4.0"
-    val zio = "2.0.13"
+    val zio = "2.0.15"
     val zioConfig = "3.0.7"
     val zioHttp = "3.0.0-RC1"
 
