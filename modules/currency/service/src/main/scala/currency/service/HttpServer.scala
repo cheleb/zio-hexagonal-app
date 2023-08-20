@@ -37,6 +37,7 @@ import currency.service.grpc.CurrencyService
 import currency.events.PravegaCurrencyStream
 import zio.pravega.PravegaStream
 import zio.pravega.PravegaClientConfig
+import java.net.URI
 //import javax.sql.DataSource
 
 object Main extends ZIOAppDefault:
@@ -60,7 +61,12 @@ object Main extends ZIOAppDefault:
         QuillCurrencyRepository.live,
         QuillProviderRepository.live,
         CurrencyUseCase.live,
-        PravegaClientConfig.live,
+        ZLayer.succeed(
+          PravegaClientConfig.builder
+            .controllerURI(new URI("tcp://orthanc:9090"))
+            .enableTlsToController(true)
+            .build()
+        ),
         PravegaCurrencyStream.live,
         PravegaStream.fromScope("cal")
 
