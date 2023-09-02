@@ -20,7 +20,6 @@ object PravegaCurrencyStream:
 
   val stringWriterSettings =
     WriterSettingsBuilder()
-      .eventWriterConfigBuilder(_.enableLargeEvents(true))
       .withSerializer(new UTF8StringSerializer)
 
   def live: ZLayer[PravegaStream, Throwable, CurrencyStream] =
