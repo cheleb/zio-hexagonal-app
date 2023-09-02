@@ -17,6 +17,7 @@ import sttp.tapir.CodecFormat.TextPlain
 import sttp.client3.httpclient.zio.HttpClientZioBackend
 
 import views.*
+import cal.server.BuildInfo
 object CalEndpoints {
 
   private val backend = HttpURLConnectionBackend()
@@ -66,6 +67,11 @@ object CalEndpoints {
         ZIO.succeed(scala.util.Right(currency))
     )
 
-  val all = List(public, getCurrency, postCurrency)
+  val version: ZServerEndpoint[Any, Any] = endpoint.get
+    .in("version")
+    .out(stringBody)
+    .serverLogicSuccess(_ => ZIO.succeed(BuildInfo.version))
+
+  val all = List(version, public, getCurrency, postCurrency)
 
 }
