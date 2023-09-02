@@ -1,3 +1,13 @@
+# Pravega
+
+## Docker compose
+
+```bash
+docker-compose -f docker-compose.yml up -d
+```
+```
+
+
 
 
 kubectl apply -f k8s/zookeeper.yaml
