@@ -1,6 +1,7 @@
 package currency.core
 
 import zio.*
+import Currency.CurrencyCode
 
 case class CurrencyUseCase(
     repo: CurrencyRepository,

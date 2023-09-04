@@ -1,6 +1,7 @@
 package currency.core
 
 import zio.*
+import Currency.CurrencyCode
 
 trait CurrencyRepository {
   def store(currency: Currency): Task[Unit]

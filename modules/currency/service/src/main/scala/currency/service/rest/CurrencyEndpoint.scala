@@ -26,9 +26,10 @@ import io.github.iltotore.iron.zioJson.given
 import sttp.tapir.Schema.schemaForMap
 import sttp.model.StatusCode
 
-import currency.core.{CurrencyCode, Currency}
+import currency.core.Currency
 import currency.core.CurrencyPair
 import currency.core.CurrencyUseCase
+import currency.core.Currency.CurrencyCode
 object CurrencyEndpoints:
 
   given Schema[CurrencyCode] = Schema.string[CurrencyCode]
