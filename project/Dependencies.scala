@@ -10,16 +10,16 @@ object Dependencies {
 
   private object Versions {
     val iron = "2.0.0"
-    val flyway = "9.21.1"
+    val flyway = "9.22.0"
     val postgresql = "42.6.0"
     val quill = "4.6.0.1"
     val munit = "0.7.29"
     val zioPravega = "0.6.1"
-    val scala3 = "3.2.2"
+    val scala3 = "3.3.1"
     val tapir = "1.4.0"
-    val zio = "2.0.15"
+    val zio = "2.0.16"
     val zioConfig = "3.0.7"
-    val zioHttp = "3.0.0-RC1"
+    val zioHttp = "3.0.0-RC2"
 
   }
 

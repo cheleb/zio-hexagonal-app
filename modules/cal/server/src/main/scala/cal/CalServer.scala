@@ -35,8 +35,8 @@ object CalServer extends ZIOAppDefault {
     case Method.GET -> !! / "css" =>
       Handler.fromStream(ZStream.fromResource("public/style.css")).toHttp
 
-    case Method.GET -> "" /: "images" /: path =>
-      Handler.text(s"Path: $path").toHttp
+    // case Method.GET -> "" /: "images" /: path =>
+    //   Handler.text(s"Path: $path").toHttp
     case Method.GET -> !! / "favicon.ico" =>
       Handler.fromStream(ZStream.fromResource("public/favicon.ico")).toHttp
   }
