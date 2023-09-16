@@ -27,4 +27,26 @@ kubectl port-forward -n argocd services/argocd-server 8080:80
 * login to the UI using `admin` and the password retrieved above http://localhost:8080
 
 
+## ArgoCD Image Updater
+
+```shell
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj-labs/argocd-image-updater/stable/manifests/install.yaml
+```
+
+
+```shell
+kubectl edit configmaps -n argocd argocd-image-updater-config
+```
+
+```yaml
+data:
+  log.level: debug
+  registries.conf: |
+    registries:
+      -name: local
+       api_url: http://minikube.local
+       prefix: minikube.local
+
+```
+
 Now let proceed to [application environment setup](app-setup.md).
