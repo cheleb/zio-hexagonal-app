@@ -30,6 +30,11 @@ kubectl port-forward -n argocd services/argocd-server 8080:80
 ## ArgoCD Image Updater
 
 ```shell
+socat TCP-LISTEN:80,reuseaddr,fork TCP:localhost:32770 
+```
+
+
+```shell
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj-labs/argocd-image-updater/stable/manifests/install.yaml
 ```
 
@@ -40,12 +45,13 @@ kubectl edit configmaps -n argocd argocd-image-updater-config
 
 ```yaml
 data:
-  log.level: debug
   registries.conf: |
     registries:
-      -name: local
-       api_url: http://minikube.local
-       prefix: minikube.local
+    - name: local
+      api_url: http://minikube.local
+      prefix: minikube.local
+      default: true
+
 
 ```
 
