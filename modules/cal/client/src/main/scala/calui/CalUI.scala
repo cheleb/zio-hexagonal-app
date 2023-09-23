@@ -43,6 +43,8 @@ given Form[CurrencyCode] = stringForm(CurrencyCode.apply)
 
 object App extends App {
 
+  val base = dom.document.location.origin
+
   val backend = FetchBackend()
 
   val currencies = Var(List.empty[CurrencyView])
@@ -68,7 +70,7 @@ object App extends App {
         onClick --> { _ =>
           println(itemVar.now())
           basicRequest
-            .post(uri"http://192.168.194.12/currency")
+            .post(uri"$base/currency")
             .body(itemVar.now())
             .send(backend)
 
