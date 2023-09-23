@@ -68,7 +68,7 @@ object App extends App {
         onClick --> { _ =>
           println(itemVar.now())
           basicRequest
-            .post(uri"http://localhost:8888/currency")
+            .post(uri"http://192.168.194.12/currency")
             .body(itemVar.now())
             .send(backend)
 
