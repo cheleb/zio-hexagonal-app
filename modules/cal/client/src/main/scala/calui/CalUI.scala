@@ -89,7 +89,7 @@ object App extends App {
         "Refresh list",
         onClick --> { _ =>
           basicRequest
-            .get(uri"http://localhost:8888/currency")
+            .get(uri"$base/currency")
             .response(asJson[List[CurrencyView]])
             .send(backend)
             .onComplete {
