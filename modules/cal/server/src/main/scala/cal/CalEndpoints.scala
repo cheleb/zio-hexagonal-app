@@ -20,8 +20,6 @@ import views.*
 import cal.server.BuildInfo
 object CalEndpoints {
 
-  private val backend = HttpURLConnectionBackend()
-
   given Schema[CurrencyCode] = Schema.string[CurrencyCode]
   given Schema[Error] = Schema.string[Error]
 
