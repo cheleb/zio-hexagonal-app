@@ -1,3 +1,5 @@
+import com.typesafe.sbt.packager.docker.ExecCmd
+import com.typesafe.sbt.packager.docker.Cmd
 import scala.sys.process
 import org.scalajs.linker.interface.ModuleSplitStyle
 
@@ -42,7 +44,7 @@ inThisBuild(
 )
 
 lazy val dockerSettings = Seq(
-  dockerBaseImage := "azul/zulu-openjdk-alpine:21-latest",
+  dockerBaseImage := "cheleb/zulu-openjdk-alpine:21-latest",
   dockerUpdateLatest := true,
 //  Docker / dockerRepository := Some("localhost:5000"),
   Docker / dockerUsername := Some("cheleb"),
