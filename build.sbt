@@ -43,6 +43,7 @@ inThisBuild(
 
 lazy val dockerSettings = Seq(
   dockerBaseImage := "azul/zulu-openjdk-alpine:21-latest",
+  dockerCmd += "RUN apk update && apk add bash",
   dockerUpdateLatest := true,
 //  Docker / dockerRepository := Some("localhost:5000"),
   Docker / dockerUsername := Some("cheleb"),
