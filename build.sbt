@@ -46,7 +46,7 @@ inThisBuild(
 lazy val dockerSettings = Seq(
   dockerBaseImage := "cheleb/zulu-openjdk-alpine:21-latest",
   dockerUpdateLatest := true,
-//  Docker / dockerRepository := Some("localhost:5000"),
+  Docker / dockerRepository := Some("localhost:5000"),
   Docker / dockerUsername := Some("cheleb"),
   dockerExposedPorts := Seq(8080)
 )

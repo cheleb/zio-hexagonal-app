@@ -8,8 +8,21 @@ If you are using a local registry, you need to enable insecure registries in min
 
 Start minikube with the following options:
 
+* orbstack 
+
+* minikube
 ```shell
 minikube start --cpus 6 --memory 8g --insecure-registry "10.0.0.0/24"
+```
+
+## Harbor
+
+Harbor is a cloud native registry that stores, signs, and scans container images for vulnerabilities. Harbor solves common challenges by delivering trust, compliance, performance, and interoperability. It fills a gap for organizations and applications that cannot use a public or cloud-based registry, or want a consistent experience across clouds.
+
+https://goharbor.io/
+
+```shell
+helm repo add harbor https://helm.goharbor.io
 ```
 
 
