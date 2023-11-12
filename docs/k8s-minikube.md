@@ -15,7 +15,19 @@ Start minikube with the following options:
 minikube start --cpus 6 --memory 8g --insecure-registry "10.0.0.0/24"
 ```
 
-## Harbor
+## Registry
+
+### Distribution
+
+Docker Distribution is a storage and content delivery system that stores and distributes container images. It runs as a service on Linux and Windows operating systems.
+
+```shell
+docker run -d -p 5000:5000 --restart always --name registry distribution/distribution:edge
+```
+
+Accessible at http://http://registry.orb.local/v2/_catalog
+
+### Harbor
 
 Harbor is a cloud native registry that stores, signs, and scans container images for vulnerabilities. Harbor solves common challenges by delivering trust, compliance, performance, and interoperability. It fills a gap for organizations and applications that cannot use a public or cloud-based registry, or want a consistent experience across clouds.
 
@@ -27,10 +39,8 @@ helm repo add harbor https://helm.goharbor.io
 
 
 
-Then update addons
 
-* enable the registry addon
-* disable the storage-provisioner addon
+##
 
 ```shell
 minikube addons enable registry
