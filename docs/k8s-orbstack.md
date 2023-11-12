@@ -17,7 +17,7 @@ Start minikube with the following options:
 Docker Distribution is a storage and content delivery system that stores and distributes container images. It runs as a service on Linux and Windows operating systems.
 
 ```shell
-docker run -d -p 5000:5000 --restart always --name registry distribution/distribution:edge
+docker run -d -p 5000:80 -v $PWD/docker/registry:/etc/docker/registry --restart always --name registry distribution/distribution:edge
 ```
 
 Accessible at http://http://registry.orb.local/v2/_catalog

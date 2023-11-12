@@ -45,14 +45,13 @@ kubectl edit configmaps -n argocd argocd-image-updater-config
 
 ```yaml
 data:
+  log.level: debug
   registries.conf: |
     registries:
     - name: local
-      api_url: http://minikube.local
-      prefix: minikube.local
+      api_url: http://registry.orb.local
+      prefix: registry.orb.local
       default: true
-
-
 ```
 
 Now let proceed to [application environment setup](app-setup.md).
