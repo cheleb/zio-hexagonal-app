@@ -7,13 +7,21 @@ import zio.config.magnolia.descriptor
 import com.typesafe.config.Config
 
 import config.PravegaConfig
+import zio.ZIO
 
+/** Application configuration
+  *
+  * @param database
+  * @param pravega
+  */
 final case class AppConfig(database: DatabaseConfig, pravega: PravegaConfig)
 
 object AppConfig {
   val configDescriptor: ConfigDescriptor[AppConfig] =
     descriptor[AppConfig]
 
-  def load = read(configDescriptor.from(ConfigSource.fromResourcePath))
+  def load: ZIO[Any, ReadError[String], AppConfig] = read(
+    configDescriptor.from(ConfigSource.fromResourcePath)
+  )
 
 }
