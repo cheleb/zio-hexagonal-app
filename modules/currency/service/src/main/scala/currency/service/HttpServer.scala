@@ -61,7 +61,6 @@ object Main extends ZIOAppDefault:
         QuillCurrencyRepository.live,
         QuillProviderRepository.live,
         CurrencyUseCase.live,
-        // PravegaClientConfig.live,
         ZLayer.succeed(
           PravegaClientConfig.builder
             .controllerURI(config.pravega.controllerURI)
