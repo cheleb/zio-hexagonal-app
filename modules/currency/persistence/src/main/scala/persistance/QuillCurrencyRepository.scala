@@ -8,6 +8,7 @@ import javax.sql.DataSource
 import persistance.QuillCurrencyRepository
 import java.lang.System
 import currency.core.Currency.CurrencyCode
+import currency.core.ports.CurrencyRepository
 
 case class QuillCurrencyRepository(
     ctx: PostgresZioJdbcContext[SnakeCase],

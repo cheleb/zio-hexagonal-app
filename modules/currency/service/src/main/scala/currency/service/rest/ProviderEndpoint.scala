@@ -11,9 +11,9 @@ import ziohttp.*
 import zio.json.JsonCodec
 import zio.json.DeriveJsonCodec
 
-import currency.core.ProviderUsecase
+import currency.core.usecases.ProviderUsecase
 import currency.core.Provider
-import currency.core.ProviderUsecase
+import currency.core.usecases.ProviderUsecase
 import currency.core.Provider
 object ProviderEndpoint:
 

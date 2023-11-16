@@ -5,8 +5,8 @@ import flywayutil.FlywayMigration
 import zio.{Console, ExitCode, Scope, Task, ZIO, ZIOAppArgs, ZIOAppDefault}
 import zio.http.{Server, App}
 
-import currency.core.CurrencyUseCase
-import currency.core.ProviderUsecase
+import currency.core.usecases.CurrencyUseCase
+import currency.core.usecases.ProviderUsecase
 import currency.core.Provider
 import currency.core.Currency
 

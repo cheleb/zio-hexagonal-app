@@ -1,13 +1,13 @@
 package currency.service.rest
 
 import ziohttp.ZIOHttp
-import currency.core.ProviderUsecase
+import currency.core.usecases.ProviderUsecase
 import ziohttp.MetricsEndpoints
 import zio.http.Server
 
 import zio.ZIO
-import currency.core.CurrencyUseCase
-import currency.core.ProviderRepository
+import currency.core.usecases.CurrencyUseCase
+import currency.core.ports.ProviderRepository
 import zio.ZLayer
 
 object RestApp {

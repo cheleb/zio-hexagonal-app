@@ -3,7 +3,7 @@ package currency.service.grpc
 import co.ledger.cal.currencies.grpc.currency.*
 import io.grpc.Status
 import zio._
-import currency.core.CurrencyUseCase
+import currency.core.usecases.CurrencyUseCase
 import scalapb.zio_grpc.RequestContext
 
 class CurrencyService(currencyUseCase: CurrencyUseCase)

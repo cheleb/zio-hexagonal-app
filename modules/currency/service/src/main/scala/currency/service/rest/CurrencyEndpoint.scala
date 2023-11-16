@@ -28,7 +28,7 @@ import sttp.model.StatusCode
 
 import currency.core.Currency
 import currency.core.CurrencyPair
-import currency.core.CurrencyUseCase
+import currency.core.usecases.CurrencyUseCase
 import currency.core.Currency.CurrencyCode
 object CurrencyEndpoints:
 

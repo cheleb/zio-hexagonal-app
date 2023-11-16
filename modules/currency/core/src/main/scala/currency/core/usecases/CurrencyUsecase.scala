@@ -1,7 +1,9 @@
-package currency.core
+package currency.core.usecases
 
 import zio.*
-import Currency.CurrencyCode
+import currency.core.*
+import currency.core.ports.*
+import currency.core.Currency.CurrencyCode
 
 case class CurrencyUseCase(
     repo: CurrencyRepository,

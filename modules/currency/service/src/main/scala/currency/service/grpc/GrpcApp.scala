@@ -6,7 +6,7 @@ import scalapb.zio_grpc.{Server => GrpcServer}
 import scalapb.zio_grpc.ServiceList
 import scalapb.zio_grpc.ServerLayer
 import io.grpc.ServerBuilder
-import currency.core.CurrencyUseCase
+import currency.core.usecases.CurrencyUseCase
 
 object GrpcApp {
 

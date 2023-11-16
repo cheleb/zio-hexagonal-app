@@ -1,6 +1,6 @@
 package currency.events
 
-import currency.core.CurrencyStream
+import currency.core.ports.CurrencyStream
 import currency.core.Currency
 import zio.*
 import zio.stream.*

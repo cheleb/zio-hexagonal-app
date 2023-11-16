@@ -1,7 +1,9 @@
-package currency.core
+package currency.core.ports
 
 import zio.*
-import Currency.CurrencyCode
+import currency.core.*
+import currency.core.ports.*
+import currency.core.Currency.CurrencyCode
 
 trait CurrencyRepository {
   def store(currency: Currency): Task[Unit]

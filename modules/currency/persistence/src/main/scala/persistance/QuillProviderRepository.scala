@@ -1,15 +1,14 @@
 package persistance
 
-import currency.core.CurrencyRepository
 import currency.core.Provider
 import zio.*
 import io.getquill.*
 import javax.sql.DataSource
-import currency.core.ProviderRepository
+import currency.core.ports.ProviderRepository
 import java.lang.System
 
 import currency.core.Provider
-import currency.core.ProviderRepository
+import currency.core.ports.ProviderRepository
 case class QuillProviderRepository(
     ctx: PostgresZioJdbcContext[SnakeCase],
     dataSource: DataSource
