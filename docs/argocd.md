@@ -54,4 +54,8 @@ data:
       default: true
 ```
 
+### Secrets
+
+
+
 Now let proceed to [application environment setup](app-setup.md).
