@@ -18,6 +18,7 @@ val serverPlugins = dev match {
   case false =>
     Seq(
 //      SbtWeb,
+      BuildInfoPlugin,
       JavaServerAppPackaging,
       WebScalaJSBundlerPlugin,
       DockerPlugin
@@ -155,8 +156,11 @@ lazy val sharedJs = shared.js
 
 lazy val `cal-server` = module("cal", "server")
   .enablePlugins(serverPlugins: _*)
+  .enablePlugins(BuildInfoPlugin)
   .settings(
     fork := true,
+    buildInfoPackage := "cal.server",
+    buildInfoKeys := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion),
     scalaJSProjects := Seq(`cal-client`),
     Assets / pipelineStages := Seq(scalaJSPipeline),
     libraryDependencies ++= Dependencies.httpServerDependencies ++ Dependencies.rdbmsDependencies,
