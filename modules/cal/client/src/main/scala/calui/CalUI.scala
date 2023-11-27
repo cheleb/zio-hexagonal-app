@@ -25,6 +25,7 @@ import scala.util.Success
 import scala.concurrent.ExecutionContext.Implicits.global
 
 import dev.cheleb.scalamigen.Defaultable
+import dev.cheleb.scalamigen.ui5.UI5WidgetFactory
 
 case class Address(street: String, city: String, country: String)
 
@@ -40,6 +41,8 @@ given Defaultable[Address] with
   def default = Address("", "", "")
 
 given Form[CurrencyCode] = stringForm(CurrencyCode.apply)
+
+given WidgetFactory = UI5WidgetFactory
 
 object App extends App {
 

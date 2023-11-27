@@ -130,7 +130,7 @@ lazy val `cal-client` = scalajsProject("cal", "client")
   .settings(scalacOptions ++= usedScalacOptions)
   .settings(
     libraryDependencies ++= Seq(
-      "dev.cheleb" %%% "laminar-form-derivation" % JSVersions.laminarFormDerivation
+      "dev.cheleb" %%% "laminar-form-derivation-ui5" % JSVersions.laminarFormDerivation
     )
   )
   .dependsOn(sharedJs)
