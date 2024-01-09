@@ -54,7 +54,7 @@ object Dependencies {
 
   val quillDependencies = Seq(
     "io.getquill" %% "quill-jdbc-zio" % Versions.quill,
-    "org.postgresql" % "postgresql" % "42.6.0" % "runtime",
+    "org.postgresql" % "postgresql" % "42.7.1" % "runtime",
     "ch.qos.logback" % "logback-classic" % "1.4.14" % "runtime"
   )
 
