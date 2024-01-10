@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "start": "NODE_OPTIONS=--openssl-legacy-provider node",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"

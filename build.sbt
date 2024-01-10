@@ -231,6 +231,7 @@ def scalajsProject(moduleId: String, projectId: String): Project =
     .settings(nexusNpmSettings)
     .settings(Test / requireJsDomEnv := true)
     .settings(
+      npmExtraArgs += "--openssl-legacy-provider",
       scalacOptions := Seq(
         "-scalajs",
         "-deprecation",
