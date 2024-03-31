@@ -1,12 +1,21 @@
 
 # Setup for Ziohexa
 
+Now that:
+
+* the cluster is up and running
+* argocd is installed and configured with the image updater
+
+We can proceed to deploy the app.
+
 * namespace
 
 ```shell
 kubectl create namespace ziohexa
 ```
-* secret for postgresql
+* secret for 
+
+This app uses a postgresql database, we need to create a secret to store the password.
 
 ```shell
 kubectl -n ziohexa  create secret generic postgresql-secrets --from-literal=POSTGRES_PASSWORD=*************
