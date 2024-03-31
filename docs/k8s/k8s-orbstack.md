@@ -33,3 +33,8 @@ helm repo add harbor https://helm.goharbor.io
 ```
 
 Help wanted to set up Harbor with Orbstack.
+
+
+Next steps:
+
+* [Install argo-cd](../argocd.md)

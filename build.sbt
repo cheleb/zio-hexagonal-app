@@ -7,6 +7,9 @@ val scala3Version = "3.3.1"
 
 val dev = sys.env.get("DEV").isDefined
 
+val dockerRegistry =
+  sys.env.get("DOCKER_REGISTRY").getOrElse("http://localhost:5000")
+
 val dockerPlugins = Seq(
   JavaServerAppPackaging,
 //    JavaAgent,
@@ -47,7 +50,7 @@ inThisBuild(
 lazy val dockerSettings = Seq(
   dockerBaseImage := "cheleb/zulu-openjdk-alpine:21-latest",
   dockerUpdateLatest := true,
-  Docker / dockerRepository := Some("localhost:5000"),
+  Docker / dockerRepository := Some(dockerRegistry),
   Docker / dockerUsername := Some("cheleb"),
   dockerExposedPorts := Seq(8080)
 )
