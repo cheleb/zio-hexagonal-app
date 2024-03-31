@@ -20,7 +20,7 @@ Docker Distribution is a storage and content delivery system that stores and dis
 docker run -d -p 5000:80 -v $PWD/docker/registry:/etc/docker/registry --restart always --name registry distribution/distribution:edge
 ```
 
-Accessible at https://registry.orb.local/v2/_catalog
+Accessible at http://registry.orb.local/v2/_catalog
 
 ### Harbor
 

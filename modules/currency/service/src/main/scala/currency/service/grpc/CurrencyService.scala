@@ -5,14 +5,17 @@ import io.grpc.Status
 import zio._
 import currency.core.usecases.CurrencyUseCase
 import scalapb.zio_grpc.RequestContext
+import io.grpc.StatusException
 
 class CurrencyService(currencyUseCase: CurrencyUseCase)
     extends ZioCurrency.CurrencyRepository {
 
-  override def getCurrencies(
+  def getCurrencies(
       request: CurrenciesRequest
-  ): ZIO[Any, Status, CurrenciesResponse] =
-    for currencies <- currencyUseCase.list.mapError(_ => Status.INTERNAL)
+  ): IO[StatusException, CurrenciesResponse] =
+    for currencies <- currencyUseCase.list.mapError(_ =>
+        StatusException(Status.INTERNAL)
+      )
     yield CurrenciesResponse(
       currencies.map(c => Currency(c.name, c.code.value, c.symbol))
     )
