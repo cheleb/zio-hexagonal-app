@@ -32,6 +32,7 @@ object Dependencies {
 
   lazy val rdbmsDependencies = zioDependencies ++ Seq(
     "org.flywaydb" % "flyway-core" % Versions.flyway,
+    "org.flywaydb" % "flyway-database-postgresql" % Versions.flyway,
     "org.postgresql" % "postgresql" % Versions.postgresql % Runtime
   )
 
