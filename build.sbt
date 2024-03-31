@@ -259,7 +259,7 @@ def nexusNpmSettings =
       scalapb.zio_grpc.ZioCodeGenerator -> (Compile / sourceManaged).value / "scalapb"
     ),
     libraryDependencies ++= Seq(
-      "io.grpc" % "grpc-netty" % "1.60.1",
+      "io.grpc" % "grpc-netty" % "1.62.2",
       "com.thesamet.scalapb.zio-grpc" %% "zio-grpc-core" % "0.6.0-test8",
       "com.thesamet.scalapb" %% "scalapb-runtime-grpc" % scalapb.compiler.Version.scalapbVersion,
       "io.envoyproxy.protoc-gen-validate" % "pgv-java-stub" % "0.6.13",

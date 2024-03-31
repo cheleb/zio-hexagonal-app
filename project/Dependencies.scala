@@ -10,7 +10,7 @@ object Dependencies {
 
   private object Versions {
     val iron = "2.0.0"
-    val flyway = "10.4.1"
+    val flyway = "10.10.0"
     val postgresql = "42.7.1"
     val quill = "4.6.0.1"
     val munit = "0.7.29"
@@ -55,8 +55,8 @@ object Dependencies {
 
   val quillDependencies = Seq(
     "io.getquill" %% "quill-jdbc-zio" % Versions.quill,
-    "org.postgresql" % "postgresql" % "42.7.1" % "runtime",
-    "ch.qos.logback" % "logback-classic" % "1.4.14" % "runtime"
+    "org.postgresql" % "postgresql" % "42.7.3" % "runtime",
+    "ch.qos.logback" % "logback-classic" % "1.5.3" % "runtime"
   )
 
   lazy val httpServerDependencies = zioDependencies ++ Seq(
