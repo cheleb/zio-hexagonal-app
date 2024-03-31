@@ -3,7 +3,7 @@ import com.typesafe.sbt.packager.docker.Cmd
 import scala.sys.process
 import org.scalajs.linker.interface.ModuleSplitStyle
 
-val scala3Version = "3.3.1"
+val scala3Version = "3.3.3"
 
 val dev = sys.env.get("DEV").isDefined
 
