@@ -26,14 +26,14 @@ import zio.ZLayer
 import currency.service.rest.CurrencyEndpoints
 import currency.service.rest.HelloEndpoint
 import currency.service.rest.ProviderEndpoint
-import scalapb.zio_grpc.ServiceList
-import scalapb.zio_grpc.ServerLayer
-import io.grpc.ServerBuilder
-import co.ledger.cal.currencies.grpc.currency.ZioCurrency
+// import scalapb.zio_grpc.ServiceList
+// import scalapb.zio_grpc.ServerLayer
+//import io.grpc.ServerBuilder
+//import co.ledger.cal.currencies.grpc.currency.ZioCurrency
 
 import rest.RestApp
-import grpc.GrpcApp
-import currency.service.grpc.CurrencyService
+// import grpc.GrpcApp
+// import currency.service.grpc.CurrencyService
 import currency.events.PravegaCurrencyStream
 import zio.pravega.PravegaStream
 import zio.pravega.PravegaClientConfig
@@ -49,9 +49,9 @@ object Main extends ZIOAppDefault:
   yield ()
 
   private def servers(config: AppConfig) =
-    GrpcApp.server.launch
-      <&>
-        RestApp.server
+    // GrpcApp.server.launch
+    //   <&>
+    RestApp.server
 
   private def app(config: AppConfig) =
     servers(config)
