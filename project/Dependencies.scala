@@ -8,14 +8,15 @@ object JSVersions {
 
 object Dependencies {
 
+  val scala3Version = "3.4.0"
   private object Versions {
     val iron = "2.0.0"
     val flyway = "10.10.0"
-    val postgresql = "42.7.1"
+    val postgresql = "42.7.3"
     val quill = "4.6.0.1"
     val munit = "0.7.29"
     val zioPravega = "0.9.0"
-    val scala3 = "3.4.0"
+    val scala3 = scala3Version
     val tapir = "1.4.0"
     val zio = "2.0.21"
     val zioConfig = "3.0.7"
@@ -65,7 +66,7 @@ object Dependencies {
     "com.softwaremill.sttp.tapir" %% "tapir-swagger-ui-bundle" % Versions.tapir,
     "com.softwaremill.sttp.tapir" %% "tapir-jsoniter-scala" % Versions.tapir,
     "com.softwaremill.sttp.tapir" %% "tapir-json-zio" % Versions.tapir,
-    "ch.qos.logback" % "logback-classic" % "1.4.14",
+    "ch.qos.logback" % "logback-classic" % "1.5.3",
     "com.softwaremill.sttp.tapir" %% "tapir-sttp-stub-server" % Versions.tapir % Test
   )
 }

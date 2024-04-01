@@ -3,8 +3,6 @@ import com.typesafe.sbt.packager.docker.Cmd
 import scala.sys.process
 import org.scalajs.linker.interface.ModuleSplitStyle
 
-val scala3Version = "3.4.0"
-
 val dev = sys.env.get("DEV").isDefined
 
 val dockerRegistry =
@@ -40,7 +38,7 @@ val serverSettings = dev match {
 
 inThisBuild(
   Seq(
-    scalaVersion := scala3Version,
+    scalaVersion := Dependencies.scala3Version,
     run / fork := true,
     scalafmtAll := true,
     scalafmtOnCompile := true

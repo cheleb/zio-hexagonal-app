@@ -28,11 +28,6 @@ kubectl port-forward -n argocd services/argocd-server 8080:80
 
 ## ArgoCD Image Updater
 
-Still relevant ?
-```shell
-socat TCP-LISTEN:80,reuseaddr,fork TCP:localhost:32770 
-```
-
 Image updater is a tool that automatically updates the container images in a Kubernetes cluster.
 
 It is an ArgoCD extension that can be installed in the same namespace as ArgoCD.
@@ -64,10 +59,13 @@ data:
     - name: local
       api_url: http://registry.orb.local
       prefix: registry.orb.local
+      unsecure: true
       default: true
 ```
 
-Notice the `prefix`.
+Notice the `prefix` and unsecure `true` fields, the prefix is the registry domain name, and unsecure is set to true because we are using a self-signed certificate.
+
+This prefix is used to match the image name in the deployment descriptor.
 
 ### Secrets
 
