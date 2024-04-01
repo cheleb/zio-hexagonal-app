@@ -33,6 +33,9 @@ services:
     environment:
       SSH_PORT: 2222
       HDFS_HOST: ${HOST_IP}
+      JAVA_OPTS: |
+        -Xmx2g
+
 
   bookie1:
     image: cheleb/pravega-bookkeeper:4.15.3
@@ -42,6 +45,9 @@ services:
     environment:
       ZK_URL: zookeeper:2181
       bookiePort: 3181
+      JAVA_OPTS: |
+          -Xmx2g
+#          -XX:MaxDirectMemorySize=2g
     links:
       - zookeeper
 
@@ -53,6 +59,9 @@ services:
       environment:
         ZK_URL: zookeeper:2181
         bookiePort: 3182
+        JAVA_OPTS: |
+          -Xmx2g
+#          -XX:MaxDirectMemorySize=2g
       links:
         - zookeeper
 
@@ -64,6 +73,9 @@ services:
       environment:
         ZK_URL: zookeeper:2181
         bookiePort: 3183
+        JAVA_OPTS: |
+          -Xmx2g
+ #         -XX:MaxDirectMemorySize=2g
       links:
         - zookeeper
 

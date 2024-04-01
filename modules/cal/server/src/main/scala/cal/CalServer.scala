@@ -70,7 +70,7 @@ object CalServer extends ZIOAppDefault {
   val app = statics2 ++ dynamic ++ static ++ ws
 
   val config = Server.Config.default
-    .port(8888)
+    .port(80)
 //    .leakDetection(LeakDetectionLevel.PARANOID)
 //    .maxThreads(nThreads)
   val configLayer = ZLayer.succeed(config)
