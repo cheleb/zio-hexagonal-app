@@ -26,17 +26,35 @@ kubectl -n ziohexa  create secret generic postgresql-secrets --from-literal=POST
 ```shell
 git clone git@github.com:cheleb/zio-hexagonal-app.git
 cd zio-hexagonal-app
-sbt Docker/publish
 ```
 
-Double check that the image is available:
+By default
 
-👉 Adapt the port to your environment
+1. Check tag
 
+The repository must be clean (aka no changes) and the tag must be the same as the one in the helm files.
 
 ```shell
-curl localhost:32770/v2/_catalog 
+git describe --tags
 ```
+
+Must out put a "clean" tag such as v0.2.2
+
+Do what ever needed (add, reset, commit, tag ...) to have a clean repo and the correct tag.
+
+2. Publish the image
+
+```shell
+NODE_OPTIONS='--openssl-legacy-provider' sbt Docker/publish
+```
+
+Some
+
+Double check that the [repository](https://registry.orb.local/v2/_catalog) at https://registry.orb.local/v2/_catalog 
+
+* [cal-server](https://registry.orb.local/v2/cheleb/cal-server/tags/list) at https://registry.orb.local/v2/cheleb/cal-server/tags/list
+* [currency-service](https://registry.orb.local/v2/cheleb/currency-service/tags/list) at https://registry.orb.local/v2/cheleb/currency-service/tags/list
+
 
 
 Now all is ready to deploy the app.

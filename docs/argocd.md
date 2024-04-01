@@ -19,10 +19,12 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 
 * With Obrbstack argocd is exposed at http://argocd-server.argocd.svc.cluster.local without effort.
 
+<!-- 
 * Or port-forward the argocd-server service to your local machine http://localhost:8080
 ```shell
 kubectl port-forward -n argocd services/argocd-server 8080:80
 ```
+-->
  login to the UI using `admin` and the password retrieved above.
 
 
