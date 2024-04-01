@@ -53,6 +53,9 @@ object Main extends ZIOAppDefault:
     //   <&>
     RestApp.server
 
+  def controllerURI(controllerIP: String): URI =
+    URI.create(s"tcp://$controllerIP:9090")
+
   private def app(config: AppConfig) =
     servers(config)
       .provide(
@@ -63,7 +66,7 @@ object Main extends ZIOAppDefault:
         CurrencyUseCase.live,
         ZLayer.succeed(
           PravegaClientConfig.builder
-            .controllerURI(config.pravega.controllerURI)
+            .controllerURI(controllerURI(config.pravega.controllerIP))
             .build()
         ),
         PravegaCurrencyStream.live,

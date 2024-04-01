@@ -6,9 +6,7 @@ import zio.config.magnolia.descriptor
 
 final case class PravegaConfig(
     controllerIP: String
-) {
-  def controllerURI: URI = URI.create(s"tcp://$controllerIP:9090")
-}
+)
 
 object PravegaConfig {
 
