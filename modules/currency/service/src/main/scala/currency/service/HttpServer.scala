@@ -41,7 +41,7 @@ import java.net.URI
 //import javax.sql.DataSource
 
 object Main extends ZIOAppDefault:
-  override def run: ZIO[Any with ZIOAppArgs with Scope, Any, Any] = for
+  override def run: ZIO[Any & ZIOAppArgs & Scope, Any, Any] = for
     config <- AppConfig.load
     _ <- ZIO.logInfo(config.database.host)
     _ <- FlywayMigration.migrate(config.database)
