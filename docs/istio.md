@@ -42,6 +42,9 @@ data plane version: 1.17.1 (2 proxies)
 kubectl apply -f ./samples/addons
 ```
 
+## With sidecars.
+
+Istio sidecars are proxies that are injected into the application pods. The sidecars intercept all network communication between the microservices and Istio. The sidecars are configured and managed by Istio. The application code is not aware of the sidecars.
 
 ### Before
 ```bash
@@ -75,6 +78,15 @@ postgresql-sfs-0              2/2     Running   0             27s
 ```
 
 
-## Performance impact
+### Performance impact
 
 https://pklinker.medium.com/performance-impacts-of-an-istio-service-mesh-63957a0000b
+
+
+## Ambiant mode (without sidecars)
+
+Since Istio 1.15, you can use [Istio in ambiant](https://istio.io/v1.15/blog/2022/introducing-ambient-mesh/) mode, without sidecars.
+
+Version 1.18 
+
+
