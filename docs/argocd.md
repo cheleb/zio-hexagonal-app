@@ -61,7 +61,7 @@ data:
     - name: local
       api_url: http://registry.orb.local
       prefix: registry.orb.local
-      unsecure: true
+      insecure: true
       default: true
 ```
 
