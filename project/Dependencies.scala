@@ -57,7 +57,7 @@ object Dependencies {
   val quillDependencies = Seq(
     "io.getquill" %% "quill-jdbc-zio" % Versions.quill,
     "org.postgresql" % "postgresql" % "42.7.7" % "runtime",
-    "ch.qos.logback" % "logback-classic" % "1.5.3" % "runtime"
+    "ch.qos.logback" % "logback-classic" % "1.5.18" % "runtime"
   )
 
   lazy val httpServerDependencies = zioDependencies ++ Seq(
@@ -66,7 +66,7 @@ object Dependencies {
     "com.softwaremill.sttp.tapir" %% "tapir-swagger-ui-bundle" % Versions.tapir,
     "com.softwaremill.sttp.tapir" %% "tapir-jsoniter-scala" % Versions.tapir,
     "com.softwaremill.sttp.tapir" %% "tapir-json-zio" % Versions.tapir,
-    "ch.qos.logback" % "logback-classic" % "1.5.3",
+    "ch.qos.logback" % "logback-classic" % "1.5.18",
     "com.softwaremill.sttp.tapir" %% "tapir-sttp-stub-server" % Versions.tapir % Test
   )
 }
