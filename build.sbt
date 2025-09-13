@@ -205,7 +205,7 @@ def module(moduleId: String, projectId: String): Project =
     .settings(buildInfoPackage := s"$moduleId.$projectId")
     .settings(
       name := s"$moduleId/$projectId",
-      libraryDependencies += "org.scalameta" %% "munit" % "1.1.1" % Test
+      libraryDependencies += "org.scalameta" %% "munit" % "1.2.0" % Test
     )
 
 def scalaJSModule = dev match {
