@@ -10,7 +10,7 @@
     "@ui5/webcomponents-fiori": "2.14.0",
     "@ui5/webcomponents-icons": "2.14.0",
     "highlight.js": "^11.6.0",
-    "jsdom": "^26.0.0"
+    "jsdom": "^27.0.0"
   },
   "devDependencies": {
     "typescript": "5.9.2",
