@@ -8,7 +8,7 @@
   "dependencies": {
     "@ui5/webcomponents": "2.14.0",
     "@ui5/webcomponents-fiori": "2.14.0",
-    "@ui5/webcomponents-icons": "2.14.0",
+    "@ui5/webcomponents-icons": "2.15.0",
     "highlight.js": "^11.6.0",
     "jsdom": "^26.0.0"
   },
