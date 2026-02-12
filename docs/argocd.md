@@ -36,7 +36,7 @@ It is an ArgoCD extension that can be installed in the same namespace as ArgoCD.
 
 
 ```shell
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj-labs/argocd-image-updater/stable/manifests/install.yaml
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj-labs/argocd-image-updater/stable/config/install.yaml
 ```
 
 This extension will stat our registry and update images in the cluster:
